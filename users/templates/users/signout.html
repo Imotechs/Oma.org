@@ -1,0 +1,32 @@
+{%extends 'mainapp/base.html'%}
+{%load static%}
+{%block content%}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+				
+				<!-- end breadcrumb -->
+
+				<!-- sign in -->
+				<div class="col-12">
+					<div class="sign">
+						<div class="sign__content">
+							<!-- authorization form -->
+							<form method="post" class="sign__form">
+								<a href="{%url 'home'%}" class="sign__logo">
+									<img src="{%static 'mainapp/img/logo.svg'%}" alt="">
+								</a>
+								<h1 style="color: white;font-size: xx-large;">Thank You!</h1>
+							</form>
+							<!-- end authorization form -->
+						</div>
+					</div>
+				</div>
+				<!-- end sign in -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+{%endblock content%}

@@ -1,0 +1,155 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%block content%}
+<!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+               
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="stat-content">
+                                    <div class="stat-text">Events </div>
+                                    {%if request.user.is_superuser%}
+                                    <div class="stat-digit color-success"> <i class="fa fa-NGN">NGN</i>{{eventpayments.sum}}</div>
+                                {%else%}
+                                <div class="stat-digit color-success"> <i class="fa fa-NGN"></i>{{events.count}}</div>
+
+                                {%endif%}
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{Tdeposits.sum}}" aria-valuemin="0" aria-valuemax="1000000" style="width: {{album.sum}}%"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="stat-content">
+                                    <div class="stat-text"> Albums</div>
+                                    {%if request.user.is_superuser%}
+
+                                    <div class="stat-digit color-primary"> <i class="fa fa-NGN">NGN</i>{{albumpayments.sum}}</div>
+                                    {%else%}
+                                    <div class="stat-digit color-primary"> <i class="fa fa-NGN"></i>{{albums.count}}</div>
+
+                                    {%endif%}
+
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="stat-content">
+                                    <div class="stat-text">Total Users</div>
+                                    <div class="stat-digit color-warning"> <i class="fa fa-usd"></i> {{users.count}}</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="stat-content">
+                                    <div class="stat-text">Staffs</div>
+                                    <div class="stat-digit color-danger"> <i class="fa fa-usd"></i>{{staffs.count}}</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+                <div class="row">
+                   
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Albums</h4></div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-de mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Email</th>
+                                                <th>Title</th>
+                                                <th>Songs</th>
+                                                <th>Date</th>
+                                                <th>Cost</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for album in albums%}
+                                            <tr>
+                                                <td>{{album.user.username}}</td>
+                                                <td>{{album.user.email}}</td>
+                                                <td>{{album.album_name}}</td>
+                                                <td>{{album.artistsong_set.count}}</td>
+                                                <td>{{album.uploaded_on}}</td>
+                                                {%if album.cost < 1 %}
+                                                <td>Free</td>
+                                                {%else%}
+                                                <td>NGN{{album.cost}}</td>
+
+                                                {%endif%}
+                                            </tr>
+                                            {%endfor%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Trade History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="trade-history-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-xs">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Profit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {%for trade in trades%}
+                                                <tr>
+                                                    <td class="text-success">{{trade.user}}</td>
+                                                    <td>{{trade.amount}}</td>
+                                                    <td>{{trade.due_time|date:'M,d'}}</td>
+                                                    <td>{{trade.sum}}</td>
+                                                </tr>
+                                              {%endfor%}  
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {%endblock content%}

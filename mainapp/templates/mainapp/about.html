@@ -1,0 +1,80 @@
+{%extends 'mainapp/base.html'%}
+{%load static%}
+
+{%block content%}
+	<!-- player -->
+	<div class="player">
+		<div class="player__cover">
+			<img src="img/covers/cover.svg" alt="">
+		</div>
+
+		<div class="player__content">
+			<span class="player__track"><b class="player__title"></b> – <span class="player__artist">AudioPizza</span></span>
+			<audio src="Westlife_Maybe_Tomorrow.mp3" id="audio" controls></audio>
+		</div>
+	</div>
+
+	<button class="player__btn" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.65,2.24a1,1,0,0,0-.8-.23l-13,2A1,1,0,0,0,7,5V15.35A3.45,3.45,0,0,0,5.5,15,3.5,3.5,0,1,0,9,18.5V10.86L20,9.17v4.18A3.45,3.45,0,0,0,18.5,13,3.5,3.5,0,1,0,22,16.5V3A1,1,0,0,0,21.65,2.24ZM5.5,20A1.5,1.5,0,1,1,7,18.5,1.5,1.5,0,0,1,5.5,20Zm13-2A1.5,1.5,0,1,1,20,16.5,1.5,1.5,0,0,1,18.5,18ZM20,7.14,9,8.83v-3L20,4.17Z"/></svg> Player</button>
+	<!-- end player -->
+
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+				
+				<!-- end breadcrumb -->
+
+				<!-- title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h1>Omaplay Music Site</h1>
+
+						<p>omaplay is Africa's most popular mobile-web music service. We provide free downloads and streaming of millions of songs from Africa and across the world via our website and Android app, including New Releases, DJ Mixes, Playlists, Podcasts, and Music News</p>
+
+						<p>We collaborate with over 70,000 African musicians and some of the world's most prestigious record labels. Flexibility, openness, and fair compensation are key to our artist services. The content owners receive a 50/50 split of all proceeds. The omaplay community will provide you with precise stats and comments as an artist.  Please join omaplay today as an artist.</p>
+					<p>We take a different approach to brand marketing that is culturally relevant. We'll help you leave an authentic and significant impression on the cultural landscape, whether you're trying to change perceptions, reach a new generation, boost revenue, or establish loyalty.</p>
+					</div>
+				</div>
+				<!-- end title -->
+
+				<div class="col-12 col-lg-4">
+					<div class="step">
+						<span class="step__number">01</span>
+						<h3 class="step__title">Create an account</h3>
+						<p class="step__text">Join Omaplay today and stream musics endlessly,stay updated with omaplay and enjoy every new release.</p>
+						<div class="col-12">
+							<a href="{%url 'register'%}" class="main__load">Sign up</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-12 col-lg-4">
+					<div class="step">
+						<span class="step__number">02</span>
+						<h3 class="step__title">Become an Artist</h3>
+						<p class="step__text">Join other Artist on omaplay and sell your albums, single release, get the reward that comes with it.</p>
+						<div class="col-12">
+							<a href="signup.html" class="main__load">Join</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-lg-4">
+					<div class="step">
+						<span class="step__number">03</span>
+						<h3 class="step__title">Enjoy Omaplay music</h3>
+						<p class="step__text">Stream and download to all kind of musics on Omaplay, feed your soul</p>
+						<div class="col-12">
+							<a href="{%url 'login'%}" class="main__load">Sign In</a>
+						</div>
+					</div>
+				</div>
+
+			
+			</div>
+
+		</div>
+	</main>
+	<!-- end main content -->
+	{%endblock content%}

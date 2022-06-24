@@ -1,0 +1,80 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%block content%}
+            <!-- Container fluid  -->
+            <div class="container">
+                <!-- Start Page Content -->
+               
+                <!-- Start Page Content -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Events</h4></div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-de mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Email</th>
+                                                <th>Event Title</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Approve</th>
+                                                <th>Cancel</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for event in events%}
+                                            <tr>
+
+                                                <td>{{event.user}}</td>
+                                                <td class="success">{{event.user.email}}</td>
+                                                <td>{{event.title}}</td>
+                                                <td>{{event.event_date}}</td>
+                                                <td>{{event.event_time}}</td>
+                                                <td>
+                                                    <form method = "post">
+                                                    <button class="btn btn-sm round btn-outline-success" name = "approve", value="{{event.id}}"> Approve</button>
+                                                </td>{%csrf_token%}
+                                                <td>
+                                                    <button class="btn btn-sm round btn-outline-danger" name = "cancel", value="{{event.id}}"> Cancel</button>
+                                                </td>
+                                            </form>
+                                            </tr>
+                                            {%endfor%}
+                                            <div class="paginator">
+                                                {% if is_paginated %}
+                                                      {% if page_obj.has_previous%}
+                                                      <a class="btn btn-outline-info mb-4" href="?page=1"> First</a>
+                                                      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}"> Previous</a>
+                                                
+                                                      {% endif %}
+                                                        {% for num in page_obj.paginator.page_range %}
+                                                
+                                                          {% if page_obj.number == num%}
+                                                          <a class="btn btn-info mb-4" href="%?page={{num}}"> {{num}}</a>
+                                                          {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                                                          <a class="btn btn-outline-info mb-4" href="?page={{num}}"> {{num}}</a>
+                                                
+                                                          {%endif%}
+                                                
+                                                        {%endfor%}
+                                                
+                                                    {% if page_obj.has_next %}
+                                                    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}} "> Next</a>
+                                                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages}}"> Last</a>
+                                                
+                                                    {% endif %}
+                                                
+                                                
+                                                {% endif %}
+                                              </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                </div>              
+            <!-- End PAge Content -->
+            {%endblock content%}

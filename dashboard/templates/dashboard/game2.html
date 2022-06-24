@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="#" type="image/png" sizes="16x16" href="#">
+    <title>Glencore|Games</title>
+    <!-- Custom CSS -->
+          <link href="{%static 'dashboard/css/style.css'%}" rel="stylesheet">
+</head>
+
+ <!-- Messages -->
+   <body>                    
+            <!-- End Bread crumb -->
+            <div class="container">
+      
+            <!-- Container fluid  -->
+            {% if messages %}
+
+            {% for message in messages %}
+                <div class = "alert alert-{{ message.tags }} fa fa-envelope">
+                  {{message}}
+                </div>
+            {%endfor%}
+      {% endif %}
+            <!-- Container fluid  -->
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div style="height:62px; background-color: #FFFFFF; overflow:hidden; box-sizing: border-box; border: 1px solid #56667F; border-radius: 4px; text-align: right; line-height:14px; block-size:62px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #56667F;padding:1px;padding: 0px; margin: 0px; width: 100%;"><div style="height:40px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=horizontal_v2&theme=light&pref_coin_id=1505&invert_hover=" width="100%" height="36px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;"></iframe></div><div style="color: #FFFFFF; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #FFFFFF; text-decoration:none; font-size:11px">Cryptocurrency Prices</a>&nbsp;by Coinlib</div></div>
+                    </div>
+                </div>
+                <!-- Start Page Content -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Glencore|trading Game Time  &nbsp; &nbsp; &nbsp; <a href="{%url 'profile'%}">Quit Game</a></h4></div>
+                                <h3 style="float:right ;">Account Bal &nbsp; ${{account.balance}}
+                                   <div>
+
+                                   </div>
+                                    {%if msg%}
+                                    <p class="btn btn-sm round btn-outline-success">{{msg}}</p>
+                                    {%endif%}
+                                </h3>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-de mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Game </th>
+                                               
+                                                
+                                            </tr>
+
+                                        </thead>
+                                        
+                                        <tbody>
+                                            <tr>
+                                                <form  method="post">
+                                                    {%csrf_token%}
+                                                Stake a Game: <input required="required" type="number" class="btn-outline-success" name="amount" >
+                                                <input hidden name = "numbers" value="{{numbers}}">
+
+                                                {%for num in numbers%}
+                                                <td>
+                                                    <button type = "submit"class="btn btn-sm round btn-outline-warning" name="choice" value="{{num}}"> {{num}}</button>
+                                                </td>
+                                                {%endfor%}
+                                               
+                                                </form>
+                                            </tr>
+                                        </form>
+
+                                            <h3>Instructions</h3>
+                                           <p>
+                                               With every game, you stake the amount you wish to use and play,<br>
+                                               Choose a number which you think will correspond to our Robots's chosen number<br>
+                                                if you can predict our Robot, we pay you double of what you stake.
+                                                <br>Else you lose what you stake for the game.
+                                                <br>Your Balance is updated automatically. GoodLuck!!!
+                                           </p>
+                                        </tbody>
+                                    </table>
+                                    <style>
+                                    button{
+                                        width: 70px;
+                                    }
+                                    input{
+                                        width: 70px;
+                                    }
+                                    </style>
+                                </div>
+                            </div>
+                        </div>
+                </div>              
+           
+    <script src="{%static 'dashboard/js/lib/jquery/jquery.min.js'%}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{%static 'dashboard/js/lib/bootstrap/js/popper.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/lib/bootstrap/js/bootstrap.min.js'%}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{%static 'dashboard/js/jquery.slimscroll.js'%}"></script>
+    <!--Menu sidebar -->
+    <script src="{%static 'dashboard/js/sidebarmenu.js'%}"></script>
+    <!--stickey kit -->
+    <script src="{%static 'dashboard/js/lib/sticky-kit-master/dist/sticky-kit.min.js'%}"></script>
+    <!--Custom JavaScript -->
+    <script src="{%static 'dashboard/js/lib/webticker/jquery.webticker.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/lib/peitychart/jquery.peity.min.js'%}"></script>
+    <!-- scripit init-->
+    <script src="{%static 'dashboard/js/custom.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/dashboard-1.js'%}"></script>
+</body>
+
+</html>

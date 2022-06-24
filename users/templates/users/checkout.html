@@ -1,0 +1,90 @@
+
+{%extends "mainapp/base.html"%}
+{%load static%}
+{%block content%}
+    <div class="d-none">
+        <div class="bg-primary p-3 d-flex align-items-center">
+            <a class="toggle togglew toggle-2" href="#"><span></span></a>
+            <h4 class="font-weight-bold m-0 text-white">Thanks :)</h4>
+        </div>
+    </div>
+    <div class="py-5 edmund-coming-soon d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="text-center pb-3">
+                <h1 class="font-weight-bold" style="font-size: x-large; color: white;">Make Payment </h1>
+            </div>
+            <!-- continue -->
+            <div class="bg-white shadow-sm">
+                <div class="container">
+                    <div class="bg-white">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                            </li>
+                            <li class="nav-item bottom-tab" role="presentation">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade py-4" id="home" role="tabpanel" aria-labelledby="home-tab">
+                       <div class="row">
+                            <div class="col-md-5 pb-4">
+                                <div class="edmund-slider-item">
+                                    <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                                       
+                                        <div class="p-3 position-relative">
+                                            
+                                            <div class="list-card-badge">
+                                            </div>
+
+                                                <!-- <ul>
+                                                    <li>Screen Shot your Debit Alert</li>
+                                                    <li>Send an email to <a href="#">eebiyenrin@gmail.com</a> containing the screenshot and your Full Name</li>
+                                                </ul> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade show active py-4" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <p  style="color: white;">Confirm the details below and continue</p>
+                        <div class="row">
+                            <div class="col-md-5 pb-4">
+                                <div class="edmund-slider-item">
+                                    <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                                        
+                                        <div class="p-3 position-relative">
+                                            <form action ='' method="post" enctype="multipart/form-data">
+
+                                            <div class="list-card-badge">
+                                                <span class="badge badge-danger" style="color: white;">Name of Item: </span> <small  style="color: white;">{{album.album_name}}</small> <br>
+                                                <span class="badge badge-danger"  style="color: white;">Tracks: </span> <small  style="color: white;"> {{album.artistsong_set.all.count}}</small> <br>
+                                                <span class="badge badge-danger"  style="color: white;">Amount: </span> <small  style="color: white;"> NGN {{album.cost}}</small>
+                                            </div>
+                                         
+                                            {%csrf_token%}
+
+                                            <div class="p-3">
+                                                <div class="p-3">
+                                                    <button class="release__buy " type="submit" style="color: white;">PAY NOW<i class="feather-arrow-right"></i></button>
+                                                </div>
+                                            </div><hr>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>       
+                
+        </div>
+    </div>
+{%endblock content%}

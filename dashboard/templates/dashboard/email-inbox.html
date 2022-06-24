@@ -1,0 +1,103 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%block content%} 
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <!-- Left sidebar -->
+                                        <div class="col-lg-3">
+                                            <div class="mt-4 ml-3">
+                                                <a class="btn btn-primary btn-flat btn-addon btn-lg btn-block" href="{%url 'sendmails'%}">Compose</a>
+
+                                                <div class="mail-list mt-4">
+                                                    <a class="list-group-item border-0 text-danger active" href="#"><i class="mdi mdi-inbox font-18 align-middle mr-2"></i><b>Inbox</b><span class="label label-danger float-right ml-2"></span></a>
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-timer font-18 align-middle mr-2"></i>Snoozed</a>
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-send font-18 align-middle mr-2"></i>Sent</a>
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Drafts<span class="label label-warning float-right ml-2"></span></a>
+
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-delete font-18 align-middle mr-2"></i>Spam</a>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <!-- End Left sidebar -->
+
+
+                                        <div class="col-lg-9">
+
+
+                                            <div class="">
+                                                <div class="mt-4">
+                                                    <div class="">
+                                                        <ul class="message-list">
+                                                {%for mail in mails%}
+                                                            <li class="unread">
+                                                                <a href="{%url 'readmail' mail.id%}">
+                                                                    <div class="row">
+
+                                                                        <div class="col-8 col-xl-3 d-flex align-items-top">
+                                                                            <div class="checkbox-wrapper-mail d-none d-xl-block">
+                                                                                <input type="checkbox">
+                                                                                <label class="toggle"></label>
+                                                                            </div>
+                                                                            <span class="email-avatar"></span>
+                                                                            <span class="text-nowrap"><strong>{{mail.name}}</strong></span>
+                                                                        </div>
+                                                                        <div class="col-4 col-xl-2 text-right order-xl-3">
+                                                                            <div class="date mr-2"></div>
+                                                                        </div>
+                                                                        <div class="col-12 col-xl-7">
+                                                                            <div class="subject">
+                                                                                {{mail.date_sent|date:'M,d, H:m:s'}}
+                                                                            <div class="content">
+                                                                                {{mail.subject}}                                                                            </div>
+       
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        {%endfor%}
+
+                                                            
+
+
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                                <!-- panel body -->
+                                            </div>
+                                            <!-- panel -->
+
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    Showing 1 - 10 of 100
+                                                </div>
+                                                <div class="col-5">
+                                                    <div class="btn-group float-right">
+                                                        <button class="btn btn-gradient" type="button"><i class="fa fa-chevron-left"></i></button>
+                                                        <button class="btn btn-gradient" type="button"><i class="fa fa-chevron-right"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+                {%endblock content%} 

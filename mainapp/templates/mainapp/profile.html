@@ -1,0 +1,706 @@
+{%extends 'mainapp/base.html'%}
+{%load static%}
+{%block content%}
+<div class="player">
+	<div class="player__cover">
+		<img src="img/covers/cover.svg" alt="">
+	</div>
+
+	<div class="player__content">
+		<span class="player__track"><b class="player__title"></b> – <span class="player__artist"></span></span>
+		<audio src="" id="audio" controls></audio>
+	</div>
+</div>
+
+<button class="player__btn" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.65,2.24a1,1,0,0,0-.8-.23l-13,2A1,1,0,0,0,7,5V15.35A3.45,3.45,0,0,0,5.5,15,3.5,3.5,0,1,0,9,18.5V10.86L20,9.17v4.18A3.45,3.45,0,0,0,18.5,13,3.5,3.5,0,1,0,22,16.5V3A1,1,0,0,0,21.65,2.24ZM5.5,20A1.5,1.5,0,1,1,7,18.5,1.5,1.5,0,0,1,5.5,20Zm13-2A1.5,1.5,0,1,1,20,16.5,1.5,1.5,0,0,1,18.5,18ZM20,7.14,9,8.83v-3L20,4.17Z"/></svg> Player</button>
+<!-- end player -->
+<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+			
+				<!-- end breadcrumb -->
+
+				<!-- title -->
+				<div class="col-12">
+					<div class="main__title main__title--page">
+						<h1>
+							<div class="row">
+							<div class="col-12 ">
+									Profile 
+									<ul>
+									
+									{%if request.user.is_superuser or request.user.is_staff %}
+									<p><a style="color: orange;text-decoration: none;" href="{%url 'dashboard'%}">Admin</a>
+									</p>
+									{%else%}
+									{%if request.user.artist%}
+									{%else%}
+									<p><a style="color: orange;text-decoration: none;" href="{%url 'becomeartist'%}">Become Artist</a>
+									</p>
+									{%endif%}
+									{%endif%}
+									{%if request.user.artist%}
+									<p><a style="color: orange;text-decoration: none;" href="{%url 'addalbum'%}">Create Album</a>
+									</p>
+									{%endif%}
+									</ul>
+							</div>
+						</div>
+						</h1>
+
+					</div>
+				</div>
+				<!-- end title -->
+			</div>
+
+			<div class="row row--grid">
+				<div class="col-12">
+					<div class="profile">
+						<div class="profile__user">
+							<div class="profile__avatar">
+								<img src="{{request.user.artist.photo.url}}" alt="">
+							</div>
+							
+							<div class="profile__meta">
+								<h3>{{request.user.username}}</h3>
+								<span>@ Omaplay</span>
+								
+							</div>
+								
+								
+						</div>
+
+						<!-- tabs nav -->
+						<ul class="nav nav-tabs profile__tabs" id="profile__tabs" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Profile</a>
+							</li>
+							{%if myalbums%}
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">My Albums</a>
+							</li>
+							{%elif request.user.artist%}
+							<li class="nav-item">
+								<a   href="{%url 'addalbum'%}">Create Album</a>
+							</li>
+							{%endif%}
+							<li class="nav-item">
+								<!-- <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Orders</a> -->
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Post Event</a>
+							</li>
+						
+
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Settings</a>
+							</li>
+					
+					
+						
+							</ul>
+						<!-- end tabs nav -->
+
+						<button class="profile__logout" type="button">
+							<span><a href="{%url 'logout'%}">Sign out</a> </span>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
+						</button>
+					</div>
+
+
+					
+
+					<!-- content tabs -->
+
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+							<div class="row row--grid">
+								
+
+								
+								
+
+								
+							</div>
+
+							<div class="row row--grid">
+								<!-- dashbox -->
+								<div class="col-12 col-lg-6">
+									<div class="dashbox">
+										<div class="dashbox__title">
+											<h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.05566,2h-14a3.00328,3.00328,0,0,0-3,3V19a3.00328,3.00328,0,0,0,3,3h14a3.00328,3.00328,0,0,0,3-3V5A3.00328,3.00328,0,0,0,19.05566,2Zm-14,2h14a1.001,1.001,0,0,1,1,1v8H17.59082a1.99687,1.99687,0,0,0-1.66406.89062L14.52051,16H9.59082L8.18457,13.89062A1.99687,1.99687,0,0,0,6.52051,13H4.05566V5A1.001,1.001,0,0,1,5.05566,4Zm14,16h-14a1.001,1.001,0,0,1-1-1V15H6.52051l1.40625,2.10938A1.99687,1.99687,0,0,0,9.59082,18h4.92969a1.99687,1.99687,0,0,0,1.66406-.89062L17.59082,15h2.46484v4A1.001,1.001,0,0,1,19.05566,20Z"/></svg>Omaplay's Albums <span>{{albums.count}}</span></h3>
+
+											<div class="dashbox__wrap">
+												<a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,5.12,4.77V3a1,1,0,0,0-2,0V7.5a1,1,0,0,0,1,1H8.62a1,1,0,0,0,0-2H6.22A8,8,0,1,1,4,12a1,1,0,0,0-2,0A10,10,0,1,0,12,2Zm0,6a1,1,0,0,0-1,1v3a1,1,0,0,0,1,1h2a1,1,0,0,0,0-2H13V9A1,1,0,0,0,12,8Z"/></svg></a>
+											</div>
+											<br>
+										</div>
+										<div class="dashbox__title">
+
+										<h3 style="color: white;">Paid+<span>{{payalbums.count}}</span></h3>
+									</div>
+
+										<div class="dashbox__list-wrap">
+											<div class="dashbox__scroll">
+											{%if request.user in artists.user%}
+
+												{%else%}
+												{%for item in payalbums%}
+												<div class="dashbox__note dashbox__note--succ">
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.72,8.79l-4.29,4.3L8.78,11.44a1,1,0,1,0-1.41,1.41l2.35,2.36a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29l5-5a1,1,0,0,0,0-1.42A1,1,0,0,0,14.72,8.79ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/></svg>
+													<p><a href="{%url 'albumdetail' item.album.id%}"  > {{item.album.album_name}}</a></p>
+													<span>{{item.album.artist.name}}</span>
+												</div>
+												{%endfor%}
+											{%endif%}
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end dashbox -->
+
+								<!-- dashbox -->
+								<div class="col-12 col-lg-6">
+									<div class="dashbox">
+										<div class="dashbox__title">
+											<h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.65,2.24a1,1,0,0,0-.8-.23l-13,2A1,1,0,0,0,7,5V15.35A3.45,3.45,0,0,0,5.5,15,3.5,3.5,0,1,0,9,18.5V10.86L20,9.17v4.18A3.45,3.45,0,0,0,18.5,13,3.5,3.5,0,1,0,22,16.5V3A1,1,0,0,0,21.65,2.24ZM5.5,20A1.5,1.5,0,1,1,7,18.5,1.5,1.5,0,0,1,5.5,20Zm13-2A1.5,1.5,0,1,1,20,16.5,1.5,1.5,0,0,1,18.5,18ZM20,7.14,9,8.83v-3L20,4.17Z"/></svg> New items for you</h3>
+
+											<div class="dashbox__wrap">
+												<a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,5.12,4.77V3a1,1,0,0,0-2,0V7.5a1,1,0,0,0,1,1H8.62a1,1,0,0,0,0-2H6.22A8,8,0,1,1,4,12a1,1,0,0,0-2,0A10,10,0,1,0,12,2Zm0,6a1,1,0,0,0-1,1v3a1,1,0,0,0,1,1h2a1,1,0,0,0,0-2H13V9A1,1,0,0,0,12,8Z"/></svg></a>
+												<a class="dashbox__more" href="{%url 'release'%}">View All</a>
+											</div>
+										</div>
+
+										<div class="dashbox__list-wrap">
+											<ul class="main__list main__list--dashbox">
+												{%for song in newsongs%}
+												<li class="single-item">
+													<a data-link data-title="{{song.title}}" data-artist="{{song.artist}}" data-img="img/covers/cover.svg" href="{{song.audio_file.url}}" class="single-item__cover">
+														<img src="img/covers/cover.svg" alt="">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
+													</a>
+													<div class="single-item__title">
+														<h4><a href="#">{{song.title}}</a></h4>
+														<span><a href="">{{song.artist}}</a></span>
+													</div>
+													<a href="#" class="single-item__add">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg>
+													</a>
+													<a href="#" class="single-item__export">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,14a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V15a1,1,0,0,0-2,0v4a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V15A1,1,0,0,0,21,14Zm-9.71,1.71a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l4-4a1,1,0,0,0-1.42-1.42L13,12.59V3a1,1,0,0,0-2,0v9.59l-2.29-2.3a1,1,0,1,0-1.42,1.42Z"/></svg>
+													</a>
+													<span class="single-item__time"></span>
+												</li>
+												{%endfor%}
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-lg-6">
+									<div  class="sign__form sign__form--profile">
+										<div class="row">
+											<div class="col-12">
+												<h4 class="sign__title">Profile details</h4>
+											</div>
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="username">User Info.</label>
+													<input readonly id="username" type="text" name="username" class="sign__input" placeholder="{{request.user.username}}">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="email">Email</label>
+													<input readonly id="email" type="text" name="email" class="sign__input" placeholder="{{request.user.email}}">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="firstname">First name</label>
+													<input readonly id="firstname" type="text" name="first_name" class="sign__input" placeholder="{{request.user.first_name}}">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="lastname">Last name</label>
+													<input readonly id="lastname" type="text" name="last_name" class="sign__input" placeholder="{{request.user.last_name}}">
+												</div>
+											</div>
+
+											<div class="col-12">
+												
+												<button class="sign__btn" class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Edit</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end dashbox -->
+							</div>
+						</div>
+
+						
+						<div class="tab-pane fade" id="tab-2" role="tabpanel">
+							<div class="row row--grid">
+								<div class="col-12">
+									<div class="dashbox">
+										<div class="dashbox__table-wrap">
+											<div class="dashbox__table-scroll">
+												<form action="{%url 'postevent'%}" method="get" enctype="multipart/form-data">
+													<div class="file-upload">
+														<button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+															Image</button>
+															{%csrf_token%}
+														<div class="image-upload-wrap">
+															<input class="file-upload-input" name = "file" type='file' onchange="readURL(this);" accept="image/*" />
+															<div class="drag-text">
+																<h3>Drag and drop a file or select add Image</h3>
+															</div>
+														</div>
+														<div class="file-upload-content">
+															<img class="file-upload-image" src="#" alt="your image" />
+															<div class="image-title-wrap">
+																<button type="button" onclick="removeUpload()" class="remove-image">Remove <span
+																		class="image-title">Uploaded Image</span></button>
+															</div>
+														</div>
+														<hr>
+														<div>
+															<label for="en" >Event Name: </label>
+															<input class="inp" type="text" placeholder="Event Name" name="event_name" id="en" required>
+	
+															<label for="doe">Date of Event: </label>
+															<input class="inp" type="text" id="expiration" required="true" placeholder="eg. May 26,2022" name="event_date" >
+															<!-- pattern='(?:((?:0[1-9]|1[0-9]|2[0-9])\/(?:0[1-9]|1[0-2])|(?:30)\/(?!02)(?:0[1-9]|1[0-2])|31\/(?:0[13578]|1[02]))\/(?:19|20)[0-9]{2})' -->
+															<label for="toe">Time of Event: </label>
+															<input class="inp" type="text" placeholder="e.g 8:30pm" name="event_time"id="toe" required>
+															<label for="des">Event Center: </label>
+															<input class="inp" type="text" placeholder="Enter Center of the event.." name="event_cent" id="des" required>
+															
+															<label for="des">Description: </label>
+															<textarea class="inp" type="text" placeholder="Enter description of the event.." name="event_desc" id="des" required></textarea>
+															<p>Do you have ticket or permit for your Event?<br> Provide the cost of every ticket category. <br>
+																Any of them is Optional </p>
+																<br>
+																<p>Ticket Qty</p>
+																<input type="number" placeholder="Ticket Qty"  name="qty"  min="0" max="1000000" >
+
+																<br>
+															<p>Input Price for Ticket Type (Naira)</p>
+															<input type="number" placeholder="General" name="general" min="0" max="1000000" >
+															<input type="number" placeholder="Regular" name="regular" min="0" max="1000000" >
+															<input type="number" placeholder="VIP"  name="vip"  min="0" max="1000000" >
+															<br>
+															
+
+															<button class="registerbtn" type="submit">Upload</button>
+														</div>
+													</div>
+												</form>
+												
+																					
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<style>
+							
+  
+						.file-upload {
+							background-color: #16151a;
+							width: 600px;
+							margin: 0 auto;
+							padding: 20px;
+						}
+						
+						.file-upload-btn {
+							width: 100%;
+							margin: 0;
+							color: #fff;
+							background: #1FB264;
+							border: none;
+							padding: 10px;
+							border-radius: 4px;
+							border-bottom: 4px solid #15824B;
+							transition: all .2s ease;
+							outline: none;
+							text-transform: uppercase;
+							font-weight: 700;
+						}
+						
+						.file-upload-btn:hover {
+							background: #1AA059;
+							color: #ffffff;
+							transition: all .2s ease;
+							cursor: pointer;
+						}
+						
+						.file-upload-btn:active {
+							border: 0;
+							transition: all .2s ease;
+						}
+						
+						.file-upload-content {
+							display: none;
+							text-align: center;
+						}
+						
+						.file-upload-input {
+							position: absolute;
+							margin: 0;
+							padding: 0;
+							width: 100%;
+							height: 100%;
+							outline: none;
+							opacity: 0;
+							cursor: pointer;
+						}
+						
+						.image-upload-wrap {
+							margin-top: 20px;
+							border: 4px dashed #1FB264;
+							position: relative;
+						}
+						
+						.image-dropping,
+						.image-upload-wrap:hover {
+							background-color: #1FB264;
+							border: 4px dashed #ffffff;
+						}
+						
+						.image-title-wrap {
+							padding: 0 15px 15px 15px;
+							color: #222;
+						}
+						
+						.drag-text {
+							text-align: center;
+						}
+						
+						.drag-text h3 {
+							font-weight: 100;
+							text-transform: uppercase;
+							color: #15824B;
+							padding: 60px 0;
+						}
+						
+						.file-upload-image {
+							max-height: 200px;
+							max-width: 200px;
+							margin: auto;
+							padding: 20px;
+						}
+						
+						.remove-image {
+							width: 200px;
+							margin: 0;
+							color: #fff;
+							background: #cd4535;
+							border: none;
+							padding: 10px;
+							border-radius: 4px;
+							border-bottom: 4px solid #b02818;
+							transition: all .2s ease;
+							outline: none;
+							text-transform: uppercase;
+							font-weight: 700;
+						}
+						
+						.remove-image:hover {
+							background: #c13b2a;
+							color: #ffffff;
+							transition: all .2s ease;
+							cursor: pointer;
+						}
+						
+						.remove-image:active {
+							border: 0;
+							transition: all .2s ease;
+						}
+
+						.inp[type='text']{
+							width: 100%;
+							padding: 15px;
+							margin: 5px 0 22px 0;
+							display: inline-block;
+							border: none;
+							background: whitesmoke;
+						}
+
+						.inp[type='text']:focus {
+							background-color: #ddd;
+							outline: none;
+						}
+
+						label, p{
+							color: #c0c0c0;
+						}
+
+						.registerbtn{
+							background-color: teal;
+							color: white;
+							padding: 16px;
+							border: none;
+							cursor: pointer;
+							width: 100%;
+							margin: auto;
+							opacity: 0.8;
+						}
+
+						.registerbtn:hover {
+							opacity: 1;
+						}
+
+						input[type='number']{
+							width: 20%;
+							padding: 15px;
+							margin: 5px 0 22px 0;
+							display: inline-block;
+							border: none;
+							background: whitesmoke;
+						}
+
+						input[type='number']:focus {
+							background-color: #ddd;
+							outline: none;
+						}
+						</style>
+
+						<script>
+						function readURL(input) {
+						if (input.files && input.files[0]) {
+					
+						var reader = new FileReader();
+					
+						reader.onload = function(e) {
+							$('.image-upload-wrap').hide();
+					
+							$('.file-upload-image').attr('src', e.target.result);
+							$('.file-upload-content').show();
+					
+							$('.image-title').html(input.files[0].name);
+						};
+					
+						reader.readAsDataURL(input.files[0]);
+					
+						} else {
+						removeUpload();
+						}
+					}
+					
+					function removeUpload() {
+						$('.file-upload-input').replaceWith($('.file-upload-input').clone());
+						$('.file-upload-content').hide();
+						$('.image-upload-wrap').show();
+					}
+					$('.image-upload-wrap').bind('dragover', function () {
+						$('.image-upload-wrap').addClass('image-dropping');
+						});
+						$('.image-upload-wrap').bind('dragleave', function () {
+						$('.image-upload-wrap').removeClass('image-dropping');
+					});
+						</script>
+
+						<div class="tab-pane fade" id="tab-3" role="tabpanel">
+							<div class="row row--grid">
+								<div class="col-12 col-lg-6">
+									<div class="dashbox">
+										<div class="dashbox__title">
+											<h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.05566,2h-14a3.00328,3.00328,0,0,0-3,3V19a3.00328,3.00328,0,0,0,3,3h14a3.00328,3.00328,0,0,0,3-3V5A3.00328,3.00328,0,0,0,19.05566,2Zm-14,2h14a1.001,1.001,0,0,1,1,1v8H17.59082a1.99687,1.99687,0,0,0-1.66406.89062L14.52051,16H9.59082L8.18457,13.89062A1.99687,1.99687,0,0,0,6.52051,13H4.05566V5A1.001,1.001,0,0,1,5.05566,4Zm14,16h-14a1.001,1.001,0,0,1-1-1V15H6.52051l1.40625,2.10938A1.99687,1.99687,0,0,0,9.59082,18h4.92969a1.99687,1.99687,0,0,0,1.66406-.89062L17.59082,15h2.46484v4A1.001,1.001,0,0,1,19.05566,20Z"/></svg>Omaplay's Albums <span>{{albums.count}}</span></h3>
+
+											<div class="dashbox__wrap">
+												<a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,5.12,4.77V3a1,1,0,0,0-2,0V7.5a1,1,0,0,0,1,1H8.62a1,1,0,0,0,0-2H6.22A8,8,0,1,1,4,12a1,1,0,0,0-2,0A10,10,0,1,0,12,2Zm0,6a1,1,0,0,0-1,1v3a1,1,0,0,0,1,1h2a1,1,0,0,0,0-2H13V9A1,1,0,0,0,12,8Z"/></svg></a>
+											</div>
+											<br>
+										</div>
+										<div class="dashbox__title">
+
+										<h3 style="color: white;">My Albums<span>{{myalbums.count}}</span></h3>
+									</div>
+
+										<div class="dashbox__list-wrap">
+											<div class="dashbox__scroll">
+							
+												{%for item in myalbums%}
+										<div class="row">
+											<div class="col">
+												<div class="dashbox__note dashbox__note--succ">
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.72,8.79l-4.29,4.3L8.78,11.44a1,1,0,1,0-1.41,1.41l2.35,2.36a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29l5-5a1,1,0,0,0,0-1.42A1,1,0,0,0,14.72,8.79ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/></svg>
+												
+													<p><a href="{%url 'albumdetail' item.id%}"  > {{item.album_name}}</a></p>
+
+													<span>{{item.artist.name}}</span>
+													<span>{{item.artistsong_set.count}} Tracks</span>
+													<span></span>
+													<span></span>
+
+												<div class="single-item">
+													
+													</div>
+												</div>
+											</div>
+											<div class="col">
+												
+												<a href="{%url 'addsong' item.id%}" class="single-item__add">
+
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg>
+													</a><p style="display: inline-block;">Add Song
+													
+												</p>
+													</div>
+											</div>
+											<hr>
+												{%endfor%}
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end dashbox -->
+
+								<!-- dashbox -->
+								<div class="col-12 col-lg-6">
+									<div class="dashbox">
+										<div class="dashbox__title">
+											<h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.65,2.24a1,1,0,0,0-.8-.23l-13,2A1,1,0,0,0,7,5V15.35A3.45,3.45,0,0,0,5.5,15,3.5,3.5,0,1,0,9,18.5V10.86L20,9.17v4.18A3.45,3.45,0,0,0,18.5,13,3.5,3.5,0,1,0,22,16.5V3A1,1,0,0,0,21.65,2.24ZM5.5,20A1.5,1.5,0,1,1,7,18.5,1.5,1.5,0,0,1,5.5,20Zm13-2A1.5,1.5,0,1,1,20,16.5,1.5,1.5,0,0,1,18.5,18ZM20,7.14,9,8.83v-3L20,4.17Z"/></svg> New items for you</h3>
+
+											<div class="dashbox__wrap">
+												<a class="dashbox__refresh" href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,5.12,4.77V3a1,1,0,0,0-2,0V7.5a1,1,0,0,0,1,1H8.62a1,1,0,0,0,0-2H6.22A8,8,0,1,1,4,12a1,1,0,0,0-2,0A10,10,0,1,0,12,2Zm0,6a1,1,0,0,0-1,1v3a1,1,0,0,0,1,1h2a1,1,0,0,0,0-2H13V9A1,1,0,0,0,12,8Z"/></svg></a>
+												<!-- <a class="dashbox__more" href="{%url 'release'%}">View All</a> -->
+											</div>
+										</div>
+
+										<div class="dashbox__list-wrap">
+											<ul class="main__list main__list--dashbox">
+												{%for song in mysongs%}
+												<li class="single-item">
+													<a data-link data-title="{{song.title}}" data-artist="{{song.artist}}" data-img="img/covers/cover.svg" href="{{song.audio_file.url}}" class="single-item__cover">
+														<img src="img/covers/cover.svg" alt="">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
+													</a>
+													<div class="single-item__title">
+														<h4><a href="#">{{song.title}}</a></h4>
+														<span><a href="">{{song.album_name}}</a></span>
+													</div>
+													<a href="#" class="single-item__add">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg>
+													</a>
+													<a href="#" class="single-item__export">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,14a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V15a1,1,0,0,0-2,0v4a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V15A1,1,0,0,0,21,14Zm-9.71,1.71a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l4-4a1,1,0,0,0-1.42-1.42L13,12.59V3a1,1,0,0,0-2,0v9.59l-2.29-2.3a1,1,0,1,0-1.42,1.42Z"/></svg>
+													</a>
+													<span class="single-item__time"></span>
+												</li>
+												{%endfor%}
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane fade" id="tab-4" role="tabpanel">
+							<div class="row row--grid">
+								<!-- details form -->
+								<div class="col-12 col-lg-6">
+									<form method="post" class="sign__form sign__form--profile">
+										<div class="row">
+											<div class="col-12">
+												<h4 class="sign__title">Profile details</h4>
+											</div>
+											{%csrf_token%}
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="username">User Info.</label>
+													<input readonly id="username" type="text" name="username" class="sign__input" placeholder="{{request.user.username}}">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="email">Email</label>
+													<input readonly id="email" type="text" name="email" class="sign__input" placeholder="{{request.user.email}}">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="firstname">First name</label>
+													<input id="firstname" type="text" name="first_name" class="sign__input" placeholder="{{request.user.first_name}}">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="lastname">Last name</label>
+													<input id="lastname" type="text" name="last_name" class="sign__input" placeholder="{{request.user.last_name}}">
+												</div>
+											</div>
+
+											<div class="col-12">
+												<button class="sign__btn" name="s1" value="1" type="submit">Save</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- end details form -->
+
+								<!-- password form -->
+								<div class="col-12 col-lg-6">
+									<form action="{%url 'passreset'%}" method="get" class="sign__form sign__form--profile">
+										<div class="row">
+											<div class="col-12">
+												<h4 class="sign__title">Change password</h4>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="oldpass">Old password</label>
+													<input id="oldpass" type="password" name="opassword" class="sign__input">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="password">New password</label>
+													<input id="newpass" type="password" name="password" class="sign__input">
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="confirmpass">Confirm new password</label>
+													<input id="confirmpass" type="password" name="cpassword" class="sign__input">
+												</div>
+											</div>
+
+											
+											</div>
+
+											<div class="col-12">
+												<button class="sign__btn" name="s2" value="2" type="submit">Change</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- end password form -->
+							</div>
+						</div>
+					</div>
+					<!-- end content tabs -->
+				</div>
+			</div>	
+		</div>
+	</main>
+	<!-- end main content -->
+
+	{%endblock content%}

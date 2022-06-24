@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="#" type="image/png" sizes="16x16" href="#">
+    <title>Omaplay|Admin</title>
+    <!-- Custom CSS -->
+          <link href="{%static 'dashboard/css/style.css'%}" rel="stylesheet">
+</head>
+
+<body class="header-fix fix-sidebar">
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link toggle-nav hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggle hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <!-- Messages -->
+                        <li class="nav-item dropdown mega-menu"> <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-wallet m-r-5"></i> Menu</a>
+                            <div class="dropdown-menu animated slideInDown">
+                                <ul class="mega-menu-menu row">
+
+                                    <li class="col-lg-3  m-b-30">
+                                        <h4 class="m-b-20">Users Info</h4>
+                                        <!-- Users -->
+                                        <ul>  
+											<li><a href="{%url 'allusers'%}">Registered Users</a></li>
+                                        </ul> 
+									</li>                                                
+                                    <li class="col-lg-3  m-b-30">
+                                        <h4 class="m-b-20">Mailbox</h4>
+                                        <!-- Mailbox -->
+                                        <ul>  
+                                            <li><a href="">Read</a></li>
+                                            <!-- <li><a href="">Inbox</a></li> -->
+                                        </ul> 
+									</li>
+                                    <li class="col-lg-3  m-b-30">
+                                        <h4 class="m-b-20">Trades</h4>
+                                        <!-- Trades -->
+                                        <ul>  
+											<!-- <li><a href="">Active</a></li> -->
+                                            <!-- <li><a href="">Successful</a></li> -->
+                                        </ul> 
+									</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Messages -->
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- Comment -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
+								<div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated slideInRight">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Notifications</div>
+                                    </li>
+                                    <li>
+                                        <div class="header-notify">
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <i class="cc BTC m-r-10 f-s-40" title="BTC"></i>
+                                                <div class="notification-contnet">
+                                                    <h5>All Transaction </h5> <span class="mail-desc">Just see the my new admin!</span> 
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <i class="cc LTC m-r-10 f-s-40" title="BTC"></i>
+                                                <div class="notification-contnet">
+                                                    <h5>This is LTC coin</h5> <span class="mail-desc">Just a reminder that you have event</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <i class="cc DASH m-r-10 f-s-40" title="BTC"></i>
+                                                <div class="notification-contnet">
+                                                    <h5>This is DASH coin</h5> <span class="mail-desc">You can customize this template as you want</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <i class="cc XRP m-r-10 f-s-40" title="BTC"></i>
+                                                <div class="notification-contnet">
+                                                    <h5>This is LTC coin</h5> <span class="mail-desc">Just see the my admin!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center" href="javascript:void(0);"> Check all notifications <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Comment -->
+                        <!-- Messages -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-envelope"></i>
+								<div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated slideInRight" aria-labelledby="2">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">You have {{mails.count}} new messages</div>
+                                    </li>
+                                    <li>
+                                        <div class="header-notify">
+                                            <!-- Message -->
+                                            <a href="#">
+                                                
+                                                <div class="notification-contnet">
+                                                    <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span> 
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                
+                                                <div class="notification-contnet">
+                                                    <h5>John Doe</h5> <span class="mail-desc">I've sung a song! See you at</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                
+                                                <div class="notification-contnet">
+                                                    <h5>Mr. John</h5> <span class="mail-desc">I am a singer!</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                
+                                                <div class="notification-contnet">
+                                                    <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center" href="javascript:void(0);"> See all e-Mails <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Messages -->
+                        <!-- Profile -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right animated slideInRight">
+                                <ul class="dropdown-user">
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{%url 'logout'%}"> Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+        <!-- Left Sidebar  -->
+        <div class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebar-menu">
+                        <a href="/011_my_special_123_admin/" target="_blank"><li class="nav-label">Admin</li></a>
+                        <a href="{%url 'home'%}"><li class="nav-label">Home</li></a>
+                        <a href="{%url 'dashboard'%}"><li class="nav-label">Dashboard</li></a>
+                        <li class="nav-devider"></li>
+                        <li class="nav-label">Users</li>
+                        <li> <a class="has-arrow  " href="reg-users.html" aria-expanded="false"><i class="fa fa-columns"></i><span class="hide-menu">Users Info</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                            <li><a href="{%url 'allusers'%}">Registered Users</a></li>
+                            <li><a href="{%url 'allevents'%}">Events</a></li>
+                            <!-- <li><a href="">Deposits Evidence</a></li> -->
+                            <!-- <li><a href="">Withdrawals</a></li> -->
+                            </ul>
+                        </li>
+                        <li class="nav-label">Messages</li>
+                        <li> <a class="has-arrow  " href="email-inbox.html" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Mailbox</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <!-- <li><a href="">Compose</a></li> -->
+                               <li><a href="{%url 'mails'%}">Inbox</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Trades</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                
+                                <!-- <li><a href="">Active</a></li> -->
+                                <!-- <li><a href="">Successful</a></li> -->
+                            </ul>
+                        </li>
+                      
+                        <li><a href="{%url 'login'%}">Login</a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </div>
+        <!-- End Left Sidebar  -->
+        </div>
+        <!-- End Left Sidebar  -->
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Dashboard</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            
+            <!-- Container fluid  -->
+            {% if messages %}
+
+            {% for message in messages %}
+                <div class = "alert alert-{{ message.tags }} fa fa-envelope">
+                  {{message}}
+                </div>
+            {%endfor%}
+      {% endif %}
+            {%block content%}
+
+            {%endblock content%}
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2022 Omaplay All Right Reserved.</footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{%static 'dashboard/js/lib/jquery/jquery.min.js'%}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{%static 'dashboard/js/lib/bootstrap/js/popper.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/lib/bootstrap/js/bootstrap.min.js'%}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{%static 'dashboard/js/jquery.slimscroll.js'%}"></script>
+    <!--Menu sidebar -->
+    <script src="{%static 'dashboard/js/sidebarmenu.js'%}"></script>
+    <!--stickey kit -->
+    <script src="{%static 'dashboard/js/lib/sticky-kit-master/dist/sticky-kit.min.js'%}"></script>
+    <!--Custom JavaScript -->
+    <script src="{%static 'dashboard/js/lib/webticker/jquery.webticker.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/lib/peitychart/jquery.peity.min.js'%}"></script>
+    <!-- scripit init-->
+    <script src="{%static 'dashboard/js/custom.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/dashboard-1.js'%}"></script>
+</body>
+
+</html>

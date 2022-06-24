@@ -1,0 +1,53 @@
+{%extends 'mainapp/base.html'%}
+{%load static%}
+{%block content%}
+<!-- <style>
+    form{
+        width: 90%;
+        margin: 0% 0% 0% 0%;
+        text-align: center;
+        align-self: center;
+    }
+   option{
+        width: 50%;
+   
+    }
+    
+    .josh {
+        align-content: center;
+        padding: 0% 10% 0% 10%;
+
+    }
+</style> -->
+<div class="josh">
+<form    method = "post" id="modal-ticket" class="zoom-anim-dialog  modal modal--form">
+
+    <h2 class="sign__title">Want to buyticket for this Event?</h2>
+
+    <div class="sign__group sign__group--row">
+        <span class="sign__value">{{event.title}}</span>
+        <label class="sign__label">&nbsp;{{event.event_date}}</label>
+    </div>
+
+    <div class="sign__group sign__group--row">
+        <label class="sign__label" for="value">Choose ticket:</label>
+        <select class="sign__select" name="choice" id="value">
+           {%if event.general%}
+            <option  value="{{event.general}}">General - NGN {{event.general}} </option>
+            {%endif%}
+            {%if event.regular%}
+            <option  value="{{event.regular}}">Regular - NGN {{event.regular}} </option>
+            {%endif%} 
+            {%if event.vip%}
+            <option  value="{{event.vip}}">VIP - NGN {{event.vip}} </option>
+            {%endif%}
+        </select>
+
+        <span class="sign__text sign__text--small">You can spend money from your account on the renewal of the connected packages, or on the purchase of goods on our website.</span>
+    </div>
+    {%csrf_token%}
+
+    <button class="sign__btn" type="submit">Buy</button>
+</form>
+</div>
+{%endblock content%}

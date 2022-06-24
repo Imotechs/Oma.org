@@ -1,0 +1,59 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%block content%}    <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <!-- Left sidebar -->
+                                        <div class="col-lg-3">
+                                            <div class="mt-4 ml-3">
+                                                <div class="mail-list">
+                                                    <a class="list-group-item border-0 text-danger active" href=""><i class="mdi mdi-inbox font-18 align-middle mr-2"></i><b>Inbox</b><span class="label label-danger float-right ml-2"></span></a>
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-timer font-18 align-middle mr-2"></i>Snoozed</a>
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-send font-18 align-middle mr-2"></i>Sent</a>
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Drafts<span class="label label-warning float-right ml-2"></span></a>
+
+                                                    <a class="list-group-item border-0" href="#"><i class="mdi mdi-delete font-18 align-middle mr-2"></i>Spam</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- End Left sidebar -->
+                                        <div class="col-lg-9">
+
+                                            <div class="mt-4">
+                                                <form method="post">
+                                                    <div class="form-group">
+                                                        <input type="email" name="email" class="form-control" placeholder="To">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" name = "subject"class="form-control" placeholder="Subject">
+                                                    </div>
+                                                    {%csrf_token%}
+                                                    <div class="form-group">
+                                                        <textarea  rows="8" cols="80" name = "message" class="form-control" style="height:300px" placeholder="Enter Message"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="text-center">
+                                                            <button class="btn btn-success btn-flat btn-addon btn-lg btn-block" type="submit">Send Email</button>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- end card-->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {%endblock content%}    <!-- End Bread crumb -->
