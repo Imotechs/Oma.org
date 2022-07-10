@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin,LoginRequiredMixin
 from users.models import AlbumPayment
 from users.models import Mail
 from django.contrib.auth.decorators import login_required
+from users.news import local_news as get_local_news
 # Create your views here.
 
 
@@ -36,13 +37,14 @@ def home(request):
                 }
         return render(request,'mainapp/search.html',context)
         
-
+    news = get_local_news()
     topsingle = Song.objects.all().order_by('-uploaded_on')
     newrelease = NewRelease.objects.all().order_by('-uploaded_on')
     events = Event.objects.filter(approved = True,cancel =False).order_by('-uploaded_on')[:3]
     artist = Artist.objects.all().order_by('-date_joined')[:10]
     songs = ShowSongs.objects.all().order_by('-uploaded_on')[:4]
     choice = ShowSongs.objects.all().order_by('-uploaded_on')
+    genres = Genre.objects.all()
 
     context = {
         'files':topsingle,
@@ -51,6 +53,8 @@ def home(request):
         'newsongs':songs,
         'newrelease':newrelease,
         'choice':choice,
+        'genres':genres,
+        'allnews':news
     }
     return render(request,'mainapp/index.html',context)
     
@@ -147,18 +151,33 @@ def profile(request):
 
 def release(request):
     if request.method =="POST":
-        releases = NewRelease.objects.all().order_by('-uploaded_on')
-        genres = Genre.objects.all()
-        events = Event.objects.all()
-        context ={
-            'songs':releases,
-            'genres':genres,
-            'events':events,
-        }
-        return render(request,'mainapp/releases.html',context)
+        genre = request.POST.get('genre')
+        if genre == '' or genre == None:
+            releases = NewRelease.objects.all().order_by('-uploaded_on')
+            genres = Genre.objects.all()
+            events = Event.objects.filter(approved = True,cancel = False)
+            context ={
+                'songs':releases,
+                'genres':genres,
+                'events':events,
+            }
+            return render(request,'mainapp/releases.html',context)         
+        else:
+            songs = NewRelease.objects.filter(genre = genre)
+            genres = Genre.objects.all()
+            events = Event.objects.filter(approved = True,cancel = False)
+
+            context = {
+                'songs':songs,
+                'genres':genres,
+                'events':events,
+            }
+            return render(request,'mainapp/releases.html',context)
+        
+
     releases = NewRelease.objects.all().order_by('-uploaded_on')[:10]
     genres = Genre.objects.all()
-    events = Event.objects.all()
+    events = Event.objects.filter(approved = True,cancel = False)
     context ={
         'songs':releases,
         'genres':genres,
@@ -169,7 +188,7 @@ def release(request):
 def albums(request):
     if request.method =='POST':
         albums = Album.objects.all().order_by('-uploaded_on')
-        events = Event.objects.all().order_by('-uploaded_on')
+        events = Event.objects.filter(approved = True,cancel = False).order_by('-uploaded_on')
 
         context ={
             'albums':albums,
@@ -178,7 +197,7 @@ def albums(request):
         return render(request,'mainapp/allalbums.html',context)
 
     albums = Album.objects.all().order_by('-uploaded_on')[:10]
-    events = Event.objects.all().order_by('-uploaded_on')
+    events = Event.objects.filter(approved = True,cancel = False).order_by('-uploaded_on')
 
     context ={
         'albums':albums,
@@ -197,15 +216,15 @@ class Realese(DetailView):
 
 def artists(request):
     if request.method == 'POST':
-        artists = Artist.objects.all()
-        events = Event.objects.all()
+        artists = Artist.objects.all().order_by('date_joined')
+        events = Event.objects.filter(approved = True,cancel = False).order_by('-uploaded_on')
         context = {
             'artists':artists,
             'events':events,
         }
         return render(request,'mainapp/artists.html',context)
-    artists = Artist.objects.all().order_by('-date_joined')[:10]
-    events = Event.objects.all()
+    artists = Artist.objects.all().order_by('date_joined')[:10]
+    events = Event.objects.filter(approved = True,cancel = False).order_by('-uploaded_on')
 
     context = {
         'artists':artists,
@@ -216,7 +235,7 @@ def becomeartist(request):
     if request.method =="POST":
         user = Artist.objects.filter(user = request.user)
         if user:
-            messages.success(request,'You have signed up alredy')
+            messages.success(request,'You have signed up already')
             return redirect('profile')
         else:
             name = request.POST['username']
@@ -242,23 +261,24 @@ def artistdetail(request,pk):
         'altist_songs':altist_songs,
     }
     return render(request,'mainapp/artistdetail.html',context)
+
 def events(request):
     if request.method =='POST':
         search = request.POST.get('search')
         if search == '1':
-            event = Event.objects.all()
+            event = Event.objects.filter(approved = True,cancel = False,)
             context = {
                 'events':event
                 }
             return render(request,'mainapp/events.html',context)
         
-        event = Event.objects.filter(
+        event = Event.objects.filter(approved = True,cancel = False,).filter(
             Q(title__icontains=search) | Q(location__icontains=search))
         context = {
             'events':event
             }
         return render(request,'mainapp/events.html',context)
-    events = Event.objects.all().order_by('-uploaded_on')[:5]
+    events = Event.objects.filter(approved = True,cancel = False,).order_by('-uploaded_on')[:5]
     context = {
         'events':events
         }
@@ -310,28 +330,40 @@ def passreset(request):
 
 
 def post_event(request):
-    if request.method =="GET":
-        event_title = request.GET['event_name']       
-        event_date = request.GET['event_date']        
-        event_time = request.GET['event_time']     
-        event_desc = request.GET['event_desc']   
-        event_cent = request.GET['event_cent']
-       
+    if request.method =="POST":
+        event_title = request.POST['event_name']       
+        event_date = request.POST['event_date']        
+        event_time = request.POST['event_time']     
+        event_desc = request.POST['event_desc']   
+        event_cent = request.POST['event_cent']
+        file = request.FILES['file'],
     
-        obj = Event.objects.create(
+        obj = Event(
             user = request.user,
             title = event_title,
             event_date = event_date,
             event_time = event_time,
             location = event_cent,
             descriptions = event_desc,
-            photo = request.FILES['file'],
-            general = request.GET['general'] or None,
-            regular = request.GET['regular'] or None,
-            vip = request.GET['vip'] or None,
-            tickets = request.GET['qty'] or None,
+            photo = file[0],
+            general = request.POST['general'] or None,
+            regular = request.POST['regular'] or None,
+            vip = request.POST['vip'] or None,
+            tickets = request.POST['qty'] or None,
 
             )
+
         obj.save()
         messages.success(request,'Event Submited!')
         return redirect('profile')
+
+
+
+def my_custom_error_view(request):
+    return render(request,'500.html')
+
+def page_not_found_view(request):
+    return render(request,'404.html')
+    
+def page_restricted_view(request):
+    return render(request,'403.html')

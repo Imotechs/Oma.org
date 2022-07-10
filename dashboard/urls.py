@@ -1,7 +1,8 @@
 from django.urls import path
 from django.views import View
 from .views import (Dashboard,AllUsers,
-SongUpdateView,Emails,AllEvents,NewReleaseUpdateView
+SongUpdateView,Emails,AllEvents,NewReleaseUpdateView,
+ViewEmails,AllWithdraws,CreatePostView,UpdatePostView
 )
 urlpatterns = [
     path('main/', Dashboard.as_view(), name='dashboard'),
@@ -12,7 +13,11 @@ urlpatterns = [
     path('update/<int:pk>/',NewReleaseUpdateView.as_view(),name ='updatenewrelease'),
 
     path('all/mails/', Emails.as_view(), name = 'mails'),
+    path('read/mail/<int:pk>/',ViewEmails.as_view(), name = 'readmail'),
     path('all/allevents/',AllEvents.as_view(), name = 'allevents'),
+    path('all/withdraws/',AllWithdraws.as_view(), name = 'withdraws'),
+    path('add/news/',CreatePostView.as_view(), name = 'addnews'),
+    path('make/news/<int:pk>/',UpdatePostView.as_view(), name = 'editnews'),
 
 ]
 

@@ -100,7 +100,7 @@
                                             <tr>
                                                 <td>{{album.user.username}}</td>
                                                 <td>{{album.user.email}}</td>
-                                                <td>{{album.album_name}}</td>
+                                                <td><a href = "{%url 'my_album_detail' album.id%}">{{album.album_name}}</a></td>
                                                 <td>{{album.artistsong_set.count}}</td>
                                                 <td>{{album.uploaded_on}}</td>
                                                 {%if album.cost < 1 %}
@@ -120,7 +120,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Trade History</h4>
+                                <h4>Events </h4>
                             </div>
                             <div class="card-body">
                                 <div class="trade-history-table">
@@ -128,19 +128,17 @@
                                         <table class="table table-xs">
                                             <thead>
                                                 <tr>
-                                                    <th>User</th>
-                                                    <th>Amount</th>
+                                                    <th>user</th>
+                                                    <th>title</th>
                                                     <th>Date</th>
-                                                    <th>Profit</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {%for trade in trades%}
+                                            {%for event in events%}
                                                 <tr>
-                                                    <td class="text-success">{{trade.user}}</td>
-                                                    <td>{{trade.amount}}</td>
-                                                    <td>{{trade.due_time|date:'M,d'}}</td>
-                                                    <td>{{trade.sum}}</td>
+                                                    <td class="text-success">{{event.user}}</td>
+                                                    <td><a href="{%url 'my_event_detail' event.id%}">{{event.title}}</a></td>
+                                                    <td>{{event.uploaded_on|date:'M,d'}}</td>
                                                 </tr>
                                               {%endfor%}  
                                                 

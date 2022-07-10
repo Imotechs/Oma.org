@@ -36,9 +36,17 @@
 			<div class="row row--grid">
 				<div class="col-12">
 					<div class="main__filter">
-						<form action="#" class="main__filter-search">
-							<input type="text" placeholder="Search..." readonly>
-							<button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg></button>
+						<form method="post" class="main__filter-search">
+							<select class="main__select" name="genre" >
+								<option value="">search genres</option>
+								{%for genre in genres%}
+								<option  value="{{genre.id}}">{{genre.name}}
+									
+							</option>
+								{%endfor%}
+							</select>
+							{%csrf_token%}
+							<button type="submit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg></button>
 						</form>
 
 						<div class="main__filter-wrap">
@@ -47,16 +55,7 @@
 								<option value="legacy">Legacy artists</option>
 								<option value="active">Active artists</option>
 							</select> -->
-						<form  method="post">
-							<select class="main__select" name="genre" >
-								<option value="All genres">All genres</option>
-								{%for genre in genres%}
-								<option value="All genres"><button type = "submit" value="{{genre.id}}">{{genre.name}}</button>
-							</option>
-								{%endfor%}
-							</select>
-							{%csrf_token%}
-						</form>
+						
 						</div>
 
 						<!-- <div class="slider-radio">
@@ -99,7 +98,7 @@
 						<!-- title -->
 						<div class="col-12">
 							<div class="main__title">
-								<h2><a href="#">Upcoming events</a></h2>
+								<h2><a href="{%url 'events'%}">Upcoming events</a></h2>
 							</div>
 						</div>
 						<!-- end title -->
@@ -109,7 +108,7 @@
                                 <div class="main__carousel main__carousel--events owl-carousel" id="events">
                                     
                                     {%for event in events%}
-                                    <div class="event" data-bg="{{event.image.url}}">
+                                    <div class="event" data-bg="{{event.photo.url}}">
                                         <a href="{%url 'buyticket' event.id%}" class="event__ticket"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,10a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V11A1,1,0,0,0,9,10Zm12,1a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H3A1,1,0,0,0,2,6v4a1,1,0,0,0,1,1,1,1,0,0,1,0,2,1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1,1,1,0,0,1,0-2ZM20,9.18a3,3,0,0,0,0,5.64V17H10a1,1,0,0,0-2,0H4V14.82A3,3,0,0,0,4,9.18V7H8a1,1,0,0,0,2,0H20Z"/></svg> Buy ticket</a>
                                         <span class="event__date">{{event.event_date}}</span>
                                         <span class="event__time">{{event.event_time}}</span>

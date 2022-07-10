@@ -33,13 +33,13 @@
         <label class="sign__label" for="value">Choose ticket:</label>
         <select class="sign__select" name="choice" id="value">
            {%if event.general%}
-            <option  value="{{event.general}}">General - NGN {{event.general}} </option>
+            <option  value="{{event.general}}" enc = "General">General - NGN {{event.general}} </option>
             {%endif%}
             {%if event.regular%}
-            <option  value="{{event.regular}}">Regular - NGN {{event.regular}} </option>
+            <option  value="{{event.regular}}" enc = "Regular">Regular - NGN {{event.regular}} </option>
             {%endif%} 
             {%if event.vip%}
-            <option  value="{{event.vip}}">VIP - NGN {{event.vip}} </option>
+            <option  value="{{event.vip}}" enc = "VIP">VIP - NGN {{event.vip}} </option>
             {%endif%}
         </select>
 

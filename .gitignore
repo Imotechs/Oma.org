@@ -1,0 +1,5 @@
+.DS_Store
+.old
+env/
+db.sqlite3
+Mvenv

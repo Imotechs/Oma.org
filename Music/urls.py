@@ -23,7 +23,8 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('011_my_special_124_admin/', admin.site.urls),
+    #path('accounts/', include('allauth.urls')),
     path('012_dash_board/', include('dashboard.urls')),
     path('users/', include('users.urls')),
     path('logout/', LogoutView.as_view(template_name = 'users/signout.html'), name = 'logout'),

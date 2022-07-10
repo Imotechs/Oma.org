@@ -1,0 +1,92 @@
+{%extends 'users/base.html'%}
+{%load static%}
+{%block content%}
+            <!-- Container fluid  -->
+            <div class="container">
+                <!-- Start Page Content -->
+               
+                <!-- Start Page Content -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>{{object.title}}</h4></div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-de mb-0">
+                                        <thead>
+                                            {%if object.albumpayment_set.all%}
+
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Amount</th>
+                                                <th>Date paid</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for payment in object.albumpayment_set.all%}
+                                            {%if payment.is_valid%}
+                                            <tr>
+
+                                                <td>{{payment.user}}</td>
+                                                <td class="success">{{payment.cost}}</td>
+
+                                                <!-- {%if payment.cost == object.regular%}
+                                                <td class="success">Regular</td>
+                                                {%elif payment.cost == object.general%}
+                                                <td class="success">General</td>
+
+                                                {%elif payment.cost == object.vip%}
+                                                <td class="success">VIP</td>
+                                                {%endif%} -->
+                                                <td>{{payment.date_paid}}</td>
+                                                <td>
+                                                <button class="btn btn-sm round btn-outline-success" > Paid</button>
+                                                </td>{%csrf_token%}
+                                                <!-- <td>
+                                                    <button class="btn btn-sm round btn-outline-danger" name = "cancel", value="{{event.id}}"> Cancel</button>
+                                                </td> -->
+                                            </tr>
+                                            
+                                            {%endif%}
+                                            {%endfor%}
+                                            {%else%}
+                                            <td><button class="btn btn-sm round btn-outline-danger" >      No transactions for this Event!
+                                            </button>
+                                            </td>
+                                            {%endif%}
+                                            <div class="paginator">
+                                                {% if is_paginated %}
+                                                      {% if page_obj.has_previous%}
+                                                      <a class="btn btn-outline-info mb-4" href="?page=1"> First</a>
+                                                      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}"> Previous</a>
+                                                
+                                                      {% endif %}
+                                                        {% for num in page_obj.paginator.page_range %}
+                                                
+                                                          {% if page_obj.number == num%}
+                                                          <a class="btn btn-info mb-4" href="%?page={{num}}"> {{num}}</a>
+                                                          {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                                                          <a class="btn btn-outline-info mb-4" href="?page={{num}}"> {{num}}</a>
+                                                
+                                                          {%endif%}
+                                                
+                                                        {%endfor%}
+                                                
+                                                    {% if page_obj.has_next %}
+                                                    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}} "> Next</a>
+                                                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages}}"> Last</a>
+                                                
+                                                    {% endif %}
+                                                
+                                                
+                                                {% endif %}
+                                              </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                </div>              
+            <!-- End PAge Content -->
+            {%endblock content%}

@@ -101,11 +101,23 @@
 					
 						
 							</ul>
+							{%if request.user.account.balance > 0 %}
+					<div class="col-12 col-lg-6 col-xl-3">
+						<div class="stats">
+							<span>Account <a href="#modal-topup" class="open-modal">@omaplay</a></span>
+							<p><b>NGN {{request.user.account.balance}}</b> </p>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6,11a1,1,0,1,0,1,1A1,1,0,0,0,6,11Zm12,0a1,1,0,1,0,1,1A1,1,0,0,0,18,11Zm2-6H4A3,3,0,0,0,1,8v8a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V8A3,3,0,0,0,20,5Zm1,11a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V8A1,1,0,0,1,4,7H20a1,1,0,0,1,1,1ZM12,9a3,3,0,1,0,3,3A3,3,0,0,0,12,9Zm0,4a1,1,0,1,1,1-1A1,1,0,0,1,12,13Z"/></svg>
+						</div>
+						<span class="single-item__time"><a style = "color: rgb(34, 128, 0);text-decoration: none;font-weight: 600;font-size: larger;"href = "{%url 'withdraw'%}"> Cashout</a></span> &nbsp;
+						<span class="single-item__time"><a style = "color: rgb(34, 128, 0);text-decoration: none;font-weight: 600;font-size: larger;"href = "{%url 'my_events'%}"> Checkout</a></span>
+						</div>
+					{%endif%}
 						<!-- end tabs nav -->
 
 						<button class="profile__logout" type="button">
-							<span><a href="{%url 'logout'%}">Sign out</a> </span>
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
+							<a href="{%url 'logout'%}">
+								Logout<svg   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
+							</a>
 						</button>
 					</div>
 
@@ -118,14 +130,10 @@
 						<div class="tab-pane fade show active" id="tab-1" role="tabpanel">
 							<div class="row row--grid">
 								
-
+							
 								
-								
 
-								
-							</div>
 
-							<div class="row row--grid">
 								<!-- dashbox -->
 								<div class="col-12 col-lg-6">
 									<div class="dashbox">
@@ -150,7 +158,7 @@
 												{%for item in payalbums%}
 												<div class="dashbox__note dashbox__note--succ">
 													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.72,8.79l-4.29,4.3L8.78,11.44a1,1,0,1,0-1.41,1.41l2.35,2.36a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29l5-5a1,1,0,0,0,0-1.42A1,1,0,0,0,14.72,8.79ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/></svg>
-													<p><a href="{%url 'albumdetail' item.album.id%}"  > {{item.album.album_name}}</a></p>
+													<p><a href="{%url 'paidalbum' item.album.id%}"  > {{item.album.album_name}}</a></p>
 													<span>{{item.album.artist.name}}</span>
 												</div>
 												{%endfor%}
@@ -252,13 +260,13 @@
 									<div class="dashbox">
 										<div class="dashbox__table-wrap">
 											<div class="dashbox__table-scroll">
-												<form action="{%url 'postevent'%}" method="get" enctype="multipart/form-data">
+												<form action="{%url 'postevent'%}" method="POST" enctype="multipart/form-data">
 													<div class="file-upload">
 														<button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
 															Image</button>
 															{%csrf_token%}
 														<div class="image-upload-wrap">
-															<input class="file-upload-input" name = "file" type='file' onchange="readURL(this);" accept="image/*" />
+															<input class="file-upload-input" required name = "file" type='file' onchange="readURL(this);" accept="image/*" />
 															<div class="drag-text">
 																<h3>Drag and drop a file or select add Image</h3>
 															</div>

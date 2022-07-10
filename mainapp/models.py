@@ -99,6 +99,9 @@ class Song(models.Model):
         tag = TinyTag.get(os.getcwd() + self.audio_file.url)
         duration_ = tag.duration/60
         return f"{str(duration_)[:3]}Min"
+    def get_absolute_url(self):
+        return reverse('songdetail',kwargs = {'pk':self.pk})
+
 
 
 class NewRelease(models.Model):
@@ -120,6 +123,10 @@ class NewRelease(models.Model):
         tag = TinyTag.get(os.getcwd() + self.audio_file.url)
         duration_ = tag.duration/60
         return f"{str(duration_)[:3]}Min"
+    def get_absolute_url(self):
+        return reverse('releasedetails',kwargs = {'pk':self.pk})
+
+
 class ShowSongs(models.Model):
     title= models.CharField(max_length = 30)
     artist= models.CharField(max_length = 30)
@@ -140,6 +147,9 @@ class ShowSongs(models.Model):
         tag = TinyTag.get(os.getcwd() + self.audio_file.url)
         duration_ = tag.duration/60
         return f"{str(duration_)[:3]}Min"
+    def get_absolute_url(self):
+        return reverse('showdetail',kwargs = {'pk':self.pk})
+
 
 
 class Event(models.Model):
@@ -157,8 +167,10 @@ class Event(models.Model):
     approved = models.BooleanField(default = False)
     cancel = models.BooleanField(default = False)
     uploaded_on = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.title
+    def get_absolute_url(self):
+        return reverse('eventdetail',kwargs = {'pk':self.pk})
+
 
     

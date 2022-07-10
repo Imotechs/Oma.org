@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from .views import (home,profile,artists,
 release,events,news,about
 ,terms,contact,Realese,artistdetail,
@@ -7,10 +7,14 @@ SongDownloadView,freealbum,Paidalbum,
 NewReleaseDownloadView,NewReleaseDetail,becomeartist,
 passreset,post_event
 )
+
 import users.views as user_views
 urlpatterns = [
     path('', home, name = 'home'),
+    path('docs/',include('mainapp.APIs.urls') ),
     path('accounts/login/', user_views.login, name = 'login'),
+    path('all/songs/', user_views.Allsongs, name = 'all_songs'),
+    path('all_new/release',user_views.Allreleaase,name = 'all_new_release'),
     path('album/<int:pk>/detail', AlbumDetail.as_view(), name = 'albumdetail'),
     path('accounts/profile/', profile, name = 'profile'),
     path('all/artists/', artists, name = 'artists'),

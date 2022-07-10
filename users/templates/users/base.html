@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="#" type="image/png" sizes="16x16" href="#">
+    <title>Me|Omaplay</title>
+    <!-- Custom CSS -->
+          <link href="{%static 'dashboard/css/style.css'%}" rel="stylesheet">
+</head>
+
+<body class="header-fix fix-sidebar">
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link toggle-nav hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggle hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <!-- Messages -->
+                         
+                        <li class="nav-item dropdown mega-menu"> <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-wallet m-r-5"></i> Menu</a>
+                            <div class="dropdown-menu animated slideInDown">
+                                <ul class="mega-menu-menu row">
+
+                                    <li class="col-lg-3  m-b-30">
+                                        <!-- Users -->
+                                        <ul>  
+                                        </ul> 
+									</li>                                                
+                                    <li class="col-lg-3  m-b-30">
+                                        <!-- Mailbox -->
+                                        <ul>  
+                                            <!-- <li><a href="">Inbox</a></li> -->
+                                        </ul> 
+									</li>
+                                    <li class="col-lg-3  m-b-30">
+                                        <!-- Trades -->
+                                        <ul>  
+											<!-- <li><a href="">Active</a></li> -->
+                                            <!-- <li><a href="">Successful</a></li> -->
+                                        </ul> 
+									</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Messages -->
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- Comment -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
+								<div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+							</a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated slideInRight">
+                                <ul>
+                               
+                                    <li>
+                                        <div class="header-notify">
+                                            <!-- Message -->
+                                            
+                                            <!-- Message -->
+                                            
+                                            <!-- Message -->
+                                         
+                                            <!-- Message -->
+                                           
+                                        </div>
+                                    </li>
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- End Comment -->
+                        <!-- Messages -->
+                        
+                        <!-- End Messages -->
+                        <!-- Profile -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right animated slideInRight">
+                                <ul class="dropdown-user">
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{%url 'logout'%}"> Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+        <!-- Left Sidebar  -->
+        <div class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebar-menu">
+
+                        <a href="{%url 'home'%}"><li class="nav-label">Home</li></a>
+                        <li class="nav-devider"></li>
+                        <li class="nav-label">{{request.user}}</li>
+                        <li> <a class="has-arrow  " href="{%url 'my_events'%}" aria-expanded="false"><i class="fa fa-columns"></i><span class="hide-menu">My activity</span></a>
+                            
+                            <!-- <li><a href="">Deposits Evidence</a></li> -->
+                            <!-- <li><a href="">Withdrawals</a></li> -->
+                        </li>
+                        <!-- <li class="nav-label">Messages</li>
+                        <li> <a class="has-arrow  " href="email-inbox.html" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Mailbox</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <!-- <li><a href="">Compose</a></li> -->
+                            </ul>
+                        </li> 
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Uploads</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                
+                               
+                            </ul>
+                        </li>
+                      
+                        <li><a href="{%url 'profile'%}" style = "color:orange;">post Event</a></li>
+                        <li><a href="{%url 'logout'%}">Logout</a></li>
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </div>
+        <!-- End Left Sidebar  -->
+        </div>
+        <!-- End Left Sidebar  -->
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Dashboard</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{%url 'profile'%}">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            
+            <!-- Container fluid  -->
+            {% if messages %}
+
+            {% for message in messages %}
+                <div class = "alert alert-{{ message.tags }} fa fa-envelope">
+                  {{message}}
+                </div>
+            {%endfor%}
+      {% endif %}
+            {%block content%}
+
+            {%endblock content%}
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2022 Omaplay All Right Reserved.</footer>
+            <!-- End footer -->
+        </div>
+        <!-- End Page wrapper  -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{%static 'dashboard/js/lib/jquery/jquery.min.js'%}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{%static 'dashboard/js/lib/bootstrap/js/popper.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/lib/bootstrap/js/bootstrap.min.js'%}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{%static 'dashboard/js/jquery.slimscroll.js'%}"></script>
+    <!--Menu sidebar -->
+    <script src="{%static 'dashboard/js/sidebarmenu.js'%}"></script>
+    <!--stickey kit -->
+    <script src="{%static 'dashboard/js/lib/sticky-kit-master/dist/sticky-kit.min.js'%}"></script>
+    <!--Custom JavaScript -->
+    <script src="{%static 'dashboard/js/lib/webticker/jquery.webticker.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/lib/peitychart/jquery.peity.min.js'%}"></script>
+    <!-- scripit init-->
+    <script src="{%static 'dashboard/js/custom.min.js'%}"></script>
+    <script src="{%static 'dashboard/js/dashboard-1.js'%}"></script>
+</body>
+
+</html>

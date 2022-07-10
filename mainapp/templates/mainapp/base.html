@@ -32,7 +32,7 @@
 		<div class="header__content">
 			<div class="header__logo">
 				<a href="{%url 'home'%}">
-					<img src="{%static 'mainapp/img/OMA PLAY GREEN.png'%}" alt="">
+					<img src="{%static 'mainapp/img/omaplay.png'%}" alt="">
 				</a>
 			</div>
 
@@ -42,25 +42,15 @@
 				<a href="{%url 'contact'%}">Contacts</a>
 
 				<div class="main__filter-wrap">
-					<select class="main__select" name="genres">
-						<option value="all">All artists</option>
-						<option value="legacy">Legacy artists</option>
-						<option value="active">Active artists</option>
-					</select>
+					
 
-					<select class="main__select" name="years">
-						<option value="All genres">All genres</option>
-						<option value="1">Alternative</option>
-						<option value="2">Blues</option>
-						<option value="3">Classical</option>
-						<option value="4">Country</option>
-						<option value="5">Electronic</option>
-						<option value="6">Hip-Hop/Rap</option>
-						<option value="7">Indie</option>
-						<option value="8">Jazz</option>
-						<option value="8">Latino</option>
-						<option value="8">R&B/Soul</option>
-						<option value="8">Rock</option>
+					<select class="main__select"name = 'genre'>
+						<option value="" >All genres</option>
+						{%if genres%}
+						{%for genre in genres%}
+						<option value="{{genre.id}}" >{{genre.name}}</option>
+						{%endfor%}
+						{%endif%}
 					</select>
 				</div>
 			</nav>
@@ -112,7 +102,7 @@
 	<div class="sidebar">
 		<!-- sidebar logo -->
 		<div class="sidebar__logo">
-			<img src="{%static 'mainapp/img/OMA PLAY GREEN.png'%}" alt="">
+			<img src="{%static 'mainapp/img/omaplay.png'%}" alt="">
 		</div>
 		<!-- end sidebar logo -->
 
@@ -163,8 +153,9 @@
 			</li>
 
 			<li class="sidebar__nav-item">
-				<a href="news.html" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,14H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Zm0-4H10a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Zm4-6H17V3a1,1,0,0,0-2,0V4H13V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H4A1,1,0,0,0,3,5V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V5A1,1,0,0,0,20,4ZM19,19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V6H7V7A1,1,0,0,0,9,7V6h2V7a1,1,0,0,0,2,0V6h2V7a1,1,0,0,0,2,0V6h2Z"/></svg> <span>News</span></a>
+				<a href="{%url 'my_news'%}" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,14H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Zm0-4H10a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Zm4-6H17V3a1,1,0,0,0-2,0V4H13V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H4A1,1,0,0,0,3,5V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V5A1,1,0,0,0,20,4ZM19,19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V6H7V7A1,1,0,0,0,9,7V6h2V7a1,1,0,0,0,2,0V6h2V7a1,1,0,0,0,2,0V6h2Z"/></svg> <span>News</span></a>
 			</li>
+			
 		</ul>
 		<!-- end sidebar nav -->
 	</div>

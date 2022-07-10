@@ -1,0 +1,270 @@
+{%extends 'mainapp/base.html'%}
+{%load static%}
+
+{%block content%}
+<!-- player -->
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+			
+				<!-- end breadcrumb -->
+
+				<!-- title -->
+				<div class="col-12">
+					<div class="main__title main__title--page">
+						<h1>Edit News</h1>
+					</div>
+				</div>
+				<!-- end title -->
+			</div>
+
+			<div class="row row--grid">
+				<div class="col-12 col-lg-7 col-xl-8">
+					<form  method="post" class="sign__form sign__form--contacts" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="sign__group">
+{{form.as_p}}								
+</div>
+							</div>
+							
+{%csrf_token%}
+							<div class="col-12 col-xl-3">
+								<button type="submit" class="sign__btn">Submit</button>
+							</div>
+						</div>
+					</form>	
+				</div>
+                <style>
+					.file-upload {
+					background-color: #16151a;
+					width: 600px;
+					margin: 0 auto;
+					padding: 20px;
+				}
+				
+				#id_audio_file
+				{
+					width: 100%;
+					margin: 0;
+					color: #fff;
+					background: #1FB264;
+					border: none;
+					padding: 10px;
+					border-radius: 4px;
+					border-bottom: 4px solid #15824B;
+					transition: all .2s ease;
+					outline: none;
+					text-transform: uppercase;
+					font-weight: 700;
+				}
+				
+				.file-upload-btn:hover {
+					background: #1AA059;
+					color: #ffffff;
+					transition: all .2s ease;
+					cursor: pointer;
+				}
+				
+				.file-upload-btn:active {
+					border: 0;
+					transition: all .2s ease;
+				}
+				
+				.file-upload-content {
+					display: none;
+					text-align: center;
+				}
+				
+				.file-upload-input {
+					/* position: absolute;
+					margin: 0;
+					padding: 0;
+					width: 100%;
+					height: 100%;
+					outline: none;
+					opacity: 0;
+					cursor: pointer; */
+				}
+				
+				input[type = 'file'] {
+					margin-top: 20px;
+					border: 4px dashed #1FB264;
+					position: relative;
+				}
+				
+				.image-dropping,
+				input[type = 'file']:hover {
+					background-color: #1FB264;
+					border: 4px dashed #ffffff;
+				}
+				
+				input[type = 'file'] {
+					padding: 0 15px 15px 15px;
+					color: #222;
+				}
+				
+				.drag-text {
+					text-align: center;
+				}
+				
+				.drag-text h3 {
+					font-weight: 100;
+					text-transform: uppercase;
+					color: #15824B;
+					padding: 60px 0;
+				}
+				
+				.file-upload-image {
+					max-height: 200px;
+					max-width: 200px;
+					margin: auto;
+					padding: 20px;
+				}
+				
+				#id_song_logo {
+					width: 100%;
+					margin: 0;
+					color: #fff;
+					background: #cd4535;
+					border: none;
+					padding: 10px;
+					border-radius: 4px;
+					border-bottom: 4px solid #b02818;
+					transition: all .2s ease;
+					outline: none;
+					text-transform: uppercase;
+					font-weight: 700;
+				}
+				
+				.remove-image:hover {
+					background: #c13b2a;
+					color: #ffffff;
+					transition: all .2s ease;
+					cursor: pointer;
+				}
+				
+				.remove-image:active {
+					border: 0;
+					transition: all .2s ease;
+				}
+
+				#id_description{
+					width: 100%;
+					padding: 15px;
+					margin: 5px 0 22px 0;
+					display: inline-block;
+					border: none;
+					background: whitesmoke;
+				}
+				#id_author{
+					width: 100%;
+					height: 25px;
+					padding: 15px;
+                    margin: 5px 0 22px 0;
+
+					display: inline-block;
+					border: none;
+					background: whitesmoke;
+				}
+                #id_source{
+					width: 100%;
+					height: 25px;
+					padding: 15px;
+                    margin: 5px 0 22px 0;
+
+					display: inline-block;
+					border: none;
+					background: whitesmoke;
+				}
+				#id_title{
+					width: 100%;
+					height: 25px;
+					padding: 15px;
+					margin: 5px 0 22px 0;
+					display: inline-block;
+					border: none;
+					background: whitesmoke;
+				}
+				input [type='text']:focus {
+					background-color: #ddd;
+					outline: none;
+				}
+
+				label, p{
+					color: #c0c0c0;
+				}
+
+				button[type = 'submit']{
+					background-color: teal;
+					color: white;
+					padding: 16px;
+					border: none;
+					cursor: pointer;
+					width: 100%;
+					margin: auto;
+					opacity: 0.8;
+				}
+
+				.registerbtn:hover {
+					opacity: 1;
+				}
+
+				select {
+					width: 100%;
+					height: 50px;
+					padding: 15px;
+					margin: 5px 0 22px 0;
+					display: inline-block;
+					align-items: center;
+					border: none;
+					background: whitesmoke;
+				}
+
+				input[type='number']:focus {
+					background-color: #ddd;
+					outline: none;
+				}
+
+									fieldset {
+											color:red;
+										}
+
+										.josh{
+											align-content: center;
+											align-items: center;
+											align-self: center;
+										}
+										.josh label{
+											color:aliceblue;
+										}
+/* 										
+                                        .josh select{
+											justify-content: center;
+											align-items: flex-end;
+											flex-wrap: wrap;
+											position: relative;
+											margin-bottom: 3px;
+											width: 150px;
+											background-color: #84e2a7;
+										border: 1px solid transparent;
+										border-radius: 2px;
+										height: 25px;
+										color: #fff;
+										font-size: 16px;
+										padding: 0 20px 0 20px;
+										font-family: 'Inter', sans-serif; */
+										
+									</style>
+
+			
+
+			<!-- partners -->
+			
+			<!-- end partners -->
+		</div>
+	</main>
+	<!-- end main content -->
+{%endblock content%}

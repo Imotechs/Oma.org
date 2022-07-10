@@ -3,13 +3,14 @@ from django.views.generic import TemplateView,ListView,CreateView,DetailView,Del
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.models import User
 from mainapp.models import  Album,Event,ArtistSong,Artist,ShowSongs,Song,NewRelease
-from users.models import AlbumPayment,EventPayment,Mail
+from users.models import AlbumPayment,EventPayment,Mail, Post
 from django.db.models import Sum
 from django.contrib import messages
 from users import functions
 from django.utils import timezone
 from email.message import EmailMessage
 import smtplib
+from users.models import Withdrowal,Account
 from django.conf import settings
 
 mail_username = settings.EMAIL_HOST_USER
@@ -23,14 +24,15 @@ class Dashboard(LoginRequiredMixin,UserPassesTestMixin,TemplateView):
   def get_context_data(self, *args, **kwargs):
     context =super(Dashboard,self).get_context_data( *args, **kwargs)
     users =  User.objects.all().order_by('-date_joined')
-    events = Event.objects.filter(approved =True)
+    events = Event.objects.filter(approved =True,cancel = False)
     albums = Album.objects.all()
+    tops = Song.objects.all()
     albumpayments = AlbumPayment.objects.filter(is_valid =True).aggregate(sum = Sum('cost'))   
     eventpayments = EventPayment.objects.filter(is_valid =True).aggregate(sum = Sum('cost'))   
     admins =  User.objects.filter(is_superuser = True).order_by('-date_joined')
     staffs =  User.objects.filter(is_staff = True).order_by('-date_joined')
     mails = Mail.objects.filter(seen= False)
-    context.update({'events':events,'albums':albums,'users':users,'albumpayments':albumpayments,'eventpayments':eventpayments, 'mails':mails,'staffs':staffs, 'admins':admins})
+    context.update({'tops':tops,'events':events,'albums':albums,'users':users,'albumpayments':albumpayments,'eventpayments':eventpayments, 'mails':mails,'staffs':staffs, 'admins':admins})
     return context
   def test_func(self):
     if self.request.user.is_superuser or self.request.user.is_staff:
@@ -80,7 +82,7 @@ class AllEvents(UserPassesTestMixin,ListView ):
     def get_context_data(self, *args,**kwargs: any):
         context = super(AllEvents,self).get_context_data(*args,**kwargs)
         event = Event.objects.filter(approved= False, cancel = False)
-        context.update({ 'events':event})
+        context.update({'events':event})
         return context
     def post(self,request,*args, **kwargs):
         if request.method =='POST':
@@ -105,42 +107,44 @@ class AllEvents(UserPassesTestMixin,ListView ):
             return True
         return False
 
-# class AllWithdraws(UserPassesTestMixin,ListView ):
-#     model = Deposit
-#     template_name = 'dashboard/withdrawals.html'
-#     paginate_by = 10
-#     def get_context_data(self, *args,**kwargs: any):
-#         context = super(AllWithdraws,self).get_context_data(*args,**kwargs)
-#         withdraws = Withdrowal.objects.filter(approved= False, cancel = False)
-#         context.update({ 'withdraws':withdraws})
-#         return context
-#     def post(self,request,*args, **kwargs):
-#         if request.method =='POST':
+class AllWithdraws(UserPassesTestMixin,ListView ):
+    model = Withdrowal
+    template_name = 'dashboard/withdrawals.html'
+    def get_context_data(self, *args,**kwargs: any):
+        context = super(AllWithdraws,self).get_context_data(*args,**kwargs)
+        withdraws = Withdrowal.objects.filter(approved= False, cancel = False)
+        pastwithdraws = Withdrowal.objects.filter(approved =True)
+        cancelwithdraws = Withdrowal.objects.filter(cancel =True)
+        context.update({ 'withdraws':withdraws,'pastwithdraws':pastwithdraws, 'cancelwithdraws':cancelwithdraws})
+        return context
+    def post(self,request,*args, **kwargs):
+        if request.method =='POST':
             
-#             try:
-#                 id = request.POST['approve']
-#                 withdraw = Withdrowal.objects.get(id = int(id))
-#                 obj,created = Account.objects.get_or_create(user = withdraw.user)
-#                 obj.balance = float(obj.balance)  - withdraw.amount 
-#                 obj.save()
-#                 withdraw.approved = True
-#                 withdraw.date_approved = timezone.now()
-#                 withdraw.save()
-#                 messages.info(request,'Approved!')
-#                 return redirect('withdraws')
-#             except Exception:
-#                 id = request.POST['cancel']
-#                 withdow = Withdrowal.objects.get(id = int(id))
-#                 withdow.cancel = True
-#                 withdow.date_approved = timezone.now()
-#                 withdow.save()
-#                 messages.info(request,'Canceled!')
-#                 return redirect('withdraws')
+            try:
+                id = request.POST['approve']
+                withdraw = Withdrowal.objects.get(id = int(id))
+                obj,created = Account.objects.get_or_create(user = withdraw.user)
+                obj.balance = float(obj.balance)  - withdraw.amount 
+                obj.save()
+                withdraw.approved = True
+                withdraw.date_approved = timezone.now()
+                withdraw.save()
+                messages.info(request,'Approved!')
+                return redirect('withdraws')
+            except Exception as err:
+                print('errr:',err)
+                id = request.POST['cancel']
+                withdow = Withdrowal.objects.get(id = int(id))
+                withdow.cancel = True
+                withdow.date_approved = timezone.now()
+                withdow.save()
+                messages.info(request,'Canceled!')
+                return redirect('withdraws')
 
-#     def test_func(self):
-#         if self.request.user.is_superuser:
-#             return True
-#         return False
+    def test_func(self):
+        if self.request.user.is_superuser:
+            return True
+        return False
 
 class Emails(UserPassesTestMixin,ListView ):
     model = Mail
@@ -165,18 +169,61 @@ class Emails(UserPassesTestMixin,ListView ):
             return True
         return False
 
-# class ViewEmails(UserPassesTestMixin,DetailView):
-#     model = Mail
-#     template_name = 'dashboard/email-read.html'
+class ViewEmails(UserPassesTestMixin,DetailView):
+    model = Mail
+    template_name = 'dashboard/email-read.html'
+
+    def test_func(self):
+        if self.request.user.is_superuser or self.request.user.is_staff:
+            return True
+        return False
+
+class CreatePostView(UserPassesTestMixin,CreateView):
+    model = Post
+    template_name = "mainapp/addnews.html"
+    fields = [
+        'title',
+        'author',
+        'description',
+        'source',
+        'image'
+
+    ]
+    def post(self,*args,**kwargs):
+        request = self.request
+        obj = Mail.objects.create(
+            name = request.POST['title'],
+            author = request.POST['author'],
+            description = request.POST['description'],
+            source = request.POST['source'],
+            image = request.FILES['image'][0] or None,   
+            )
+        obj.save()
+        messages.success(request,'News Created!!')
+        return redirect ('news_detail', obj.id)
+
+    def test_func(self):
+        if self.request.user.is_superuser or self.request.user.is_staff:
+            return True
+        return False
 
 
-#     def test_func(self):
-#         if self.request.user.is_superuser or self.request.user.is_staff:
-#             return True
-#         return False
+class UpdatePostView(UserPassesTestMixin,UpdateView):
+    model = Post
+    template_name = "mainapp/editnews.html"
+    fields = [
+        'title',
+        'author',
+        'description',
+        'source',
+        'image'
 
+    ]
 
-
+    def test_func(self):
+        if self.request.user.is_superuser or self.request.user.is_staff:
+            return True
+        return False
 # class MakeMail(UserPassesTestMixin,TemplateView ):
 #     model = Mail
 #     template_name = 'dashboard/email-compose.html'

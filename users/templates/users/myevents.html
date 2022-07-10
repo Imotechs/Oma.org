@@ -1,0 +1,110 @@
+{%extends 'users/base.html'%}
+{%load static%}
+{%block content%}
+            <!-- Container fluid  -->
+            <div class="container">
+                <!-- Start Page Content -->
+               
+                <!-- Start Page Content -->
+                {%if events%}    
+                <div class="col-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>My Events @Omaplay</h4></div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-de mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Event Title</th>
+                                                <th>Date Posted</th>
+                                                <th>History</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for event in events%}
+                                            {%if event.approved%}
+                                            <tr>
+
+                                                <td class="success"><a href="{%url 'my_event_detail' event.id%}">{{event.title}}</a></td>
+                                             
+                                                <td>{{event.uploaded_on}}</td>
+                                                <td>
+                                                    <button class="btn btn-sm round btn-outline-success" ><a href="{%url 'my_event_detail' event.id%}">Check history</a> </button>
+                                                </td>{%csrf_token%}
+                                               
+                                            </tr>
+                                            {%endif%}
+                                            {%endfor%}
+                                            
+                                            <div class="paginator">
+                                                {% if is_paginated %}
+                                                      {% if page_obj.has_previous%}
+                                                      <a class="btn btn-outline-info mb-4" href="?page=1"> First</a>
+                                                      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}"> Previous</a>
+                                                
+                                                      {% endif %}
+                                                        {% for num in page_obj.paginator.page_range %}
+                                                
+                                                          {% if page_obj.number == num%}
+                                                          <a class="btn btn-info mb-4" href="%?page={{num}}"> {{num}}</a>
+                                                          {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                                                          <a class="btn btn-outline-info mb-4" href="?page={{num}}"> {{num}}</a>
+                                                
+                                                          {%endif%}
+                                                
+                                                        {%endfor%}
+                                                
+                                                    {% if page_obj.has_next %}
+                                                    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}} "> Next</a>
+                                                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages}}"> Last</a>
+                                                
+                                                    {% endif %}
+                                                
+                                                
+                                                {% endif %}
+                                              </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                {%endif%}
+            {%if albums%}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-title">
+                        <h4>My Albums @Omaplay</h4></div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-de mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Album Title</th>
+                                        <th>Date Posted</th>
+                                        <th>History</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for album in albums%}
+                                    <tr>
+
+                                        <td class="success"><a href="{%url 'my_album_detail' album.id%}">{{album.album_name}}</a></td>
+                                     
+                                        <td>{{album.uploaded_on}}</td>
+                                        <td>
+                                            <button class="btn btn-sm round btn-outline-success" ><a href="{%url 'my_album_detail' album.id%}">Check history</a> </button>
+                                        </td>{%csrf_token%}
+                                       
+                                    </tr>
+                                    {%endfor%}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            {%endif%}
+                </div>              
+            <!-- End PAge Content -->
+            {%endblock content%}

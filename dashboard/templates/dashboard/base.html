@@ -28,12 +28,13 @@
                         <li class="nav-item"> <a class="nav-link toggle-nav hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
                         <li class="nav-item m-l-10"> <a class="nav-link sidebartoggle hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                         <!-- Messages -->
+                         
                         <li class="nav-item dropdown mega-menu"> <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-wallet m-r-5"></i> Menu</a>
                             <div class="dropdown-menu animated slideInDown">
                                 <ul class="mega-menu-menu row">
 
                                     <li class="col-lg-3  m-b-30">
-                                        <h4 class="m-b-20">Users Info</h4>
+                                        <h4 class="m-b-20">Users & Activities</h4>
                                         <!-- Users -->
                                         <ul>  
 											<li><a href="{%url 'allusers'%}">Registered Users</a></li>
@@ -48,7 +49,6 @@
                                         </ul> 
 									</li>
                                     <li class="col-lg-3  m-b-30">
-                                        <h4 class="m-b-20">Trades</h4>
                                         <!-- Trades -->
                                         <ul>  
 											<!-- <li><a href="">Active</a></li> -->
@@ -75,37 +75,17 @@
                                     <li>
                                         <div class="header-notify">
                                             <!-- Message -->
-                                            <a href="#">
-                                                <i class="cc BTC m-r-10 f-s-40" title="BTC"></i>
-                                                <div class="notification-contnet">
-                                                    <h5>All Transaction </h5> <span class="mail-desc">Just see the my new admin!</span> 
-                                                </div>
-                                            </a>
+                                            
                                             <!-- Message -->
-                                            <a href="#">
-                                                <i class="cc LTC m-r-10 f-s-40" title="BTC"></i>
-                                                <div class="notification-contnet">
-                                                    <h5>This is LTC coin</h5> <span class="mail-desc">Just a reminder that you have event</span>
-                                                </div>
-                                            </a>
+                                            
                                             <!-- Message -->
-                                            <a href="#">
-                                                <i class="cc DASH m-r-10 f-s-40" title="BTC"></i>
-                                                <div class="notification-contnet">
-                                                    <h5>This is DASH coin</h5> <span class="mail-desc">You can customize this template as you want</span>
-                                                </div>
-                                            </a>
+                                         
                                             <!-- Message -->
-                                            <a href="#">
-                                                <i class="cc XRP m-r-10 f-s-40" title="BTC"></i>
-                                                <div class="notification-contnet">
-                                                    <h5>This is LTC coin</h5> <span class="mail-desc">Just see the my admin!</span>
-                                                </div>
-                                            </a>
+                                           
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> Check all notifications <i class="fa fa-angle-right"></i> </a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -121,38 +101,7 @@
                                     <li>
                                         <div class="drop-title">You have {{mails.count}} new messages</div>
                                     </li>
-                                    <li>
-                                        <div class="header-notify">
-                                            <!-- Message -->
-                                            <a href="#">
-                                                
-                                                <div class="notification-contnet">
-                                                    <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span> 
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                
-                                                <div class="notification-contnet">
-                                                    <h5>John Doe</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                
-                                                <div class="notification-contnet">
-                                                    <h5>Mr. John</h5> <span class="mail-desc">I am a singer!</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                
-                                                <div class="notification-contnet">
-                                                    <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
+                                    
                                     <li>
                                         <a class="nav-link text-center" href="javascript:void(0);"> See all e-Mails <i class="fa fa-angle-right"></i> </a>
                                     </li>
@@ -187,10 +136,11 @@
                         <a href="{%url 'dashboard'%}"><li class="nav-label">Dashboard</li></a>
                         <li class="nav-devider"></li>
                         <li class="nav-label">Users</li>
-                        <li> <a class="has-arrow  " href="reg-users.html" aria-expanded="false"><i class="fa fa-columns"></i><span class="hide-menu">Users Info</span></a>
+                        <li> <a class="has-arrow  " href="reg-users.html" aria-expanded="false"><i class="fa fa-columns"></i><span class="hide-menu">Users & Activities</span></a>
                             <ul aria-expanded="false" class="collapse">
                             <li><a href="{%url 'allusers'%}">Registered Users</a></li>
                             <li><a href="{%url 'allevents'%}">Events</a></li>
+                            <li><a href="{%url 'withdraws'%}">withdraws</a></li>
                             <!-- <li><a href="">Deposits Evidence</a></li> -->
                             <!-- <li><a href="">Withdrawals</a></li> -->
                             </ul>
@@ -202,15 +152,19 @@
                                <li><a href="{%url 'mails'%}">Inbox</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Trades</span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Uploads</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 
-                                <!-- <li><a href="">Active</a></li> -->
-                                <!-- <li><a href="">Successful</a></li> -->
+                                <li><a href="{%url 'addshowsong'%}">Show Song</a></li>
+                                <li><a href="{%url 'addtopsong'%}">Top Song</a></li>
+                                <li><a href="{%url 'addrelease'%}">New Realease</a></li>
+                                <li><a href="{%url 'addnews'%}">Add News</a></li>
                             </ul>
                         </li>
                       
-                        <li><a href="{%url 'login'%}">Login</a></li>
+                        <li><a href="{%url 'addgenre'%}" style = "color:orange;">Add Genre</a></li>
+                        <li><a href="{%url 'logout'%}">Logout</a></li>
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
